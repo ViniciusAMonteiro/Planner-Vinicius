@@ -158,9 +158,8 @@
         </div>
     </main>
 
-    <!-- Modal de Replicação (Mantido) -->
+    <!-- Modal de Replicação -->
     <div id="replicate-modal" class="fixed inset-0 bg-slate-900/50 dark:bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center transition-opacity duration-300 opacity-0">
-        <!-- ... conteúdo mantido do modal de replicação ... -->
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-11/12 max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="replicate-modal-content">
             <div class="p-5 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                 <h3 class="text-lg font-bold text-slate-800 dark:text-white">Replicar Quest</h3>
@@ -214,14 +213,22 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Inicialização do Firebase (Banco de Dados em Nuvem)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
-        const firebaseConfig = JSON.parse(firebaseConfigStr);
+        // As chaves exatas do seu banco de dados
+        const firebaseConfig = {
+            apiKey: "AIzaSyBynfCzElWLcJxG0q5KkEgRjhpe63DOmI4",
+            authDomain: "planner-vinicius.firebaseapp.com",
+            projectId: "planner-vinicius",
+            storageBucket: "planner-vinicius.firebasestorage.app",
+            messagingSenderId: "949117936624",
+            appId: "1:949117936624:web:d7c74d4b3ac1a39c317335"
+        };
         
+        const appId = 'planner-vinicius';
+        const isCloudEnabled = true; // Ativando a nuvem para o CRUD principal
+
         let appFirebase, db, auth;
         try {
             appFirebase = initializeApp(firebaseConfig);
@@ -257,7 +264,6 @@
             "Combo Maker! Continue assim! ⚡"
         ];
 
-        // Agora iniciamos o Planner Vazio, pois as tarefas virão da nuvem!
         let plannerData = [
             { id: 'seg', name: 'Segunda', theme: 'red', tasks: [] },
             { id: 'ter', name: 'Terça', theme: 'orange', tasks: [] },
@@ -279,19 +285,18 @@
         };
 
         let addingTaskToDay = null, isDarkMode = true, draggedTask = null, taskToReplicate = null, totalXP = 0;
-        let statsChartInstance = null; // Instância do gráfico
-        let audioContextStarted = false; // Flag para o Tone.js
+        let statsChartInstance = null;
+        let audioContextStarted = false;
 
         function generateId() { return Math.random().toString(36).substr(2, 9); }
 
         // --- 2. SISTEMA DE ÁUDIO (TONE.JS) ---
-        // Criação de sintetizadores simples para efeitos sonoros de jogo
         const synthSuccess = new Tone.PolySynth(Tone.Synth, {
             oscillator: { type: "sine" },
             envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 1 }
         }).toDestination();
         
-        synthSuccess.volume.value = -10; // Volume mais baixo
+        synthSuccess.volume.value = -10;
 
         const synthRevert = new Tone.Synth({
             oscillator: { type: "triangle" },
@@ -299,7 +304,6 @@
         }).toDestination();
         synthRevert.volume.value = -15;
 
-        // Inicia o contexto de áudio na primeira interação do usuário para respeitar políticas dos navegadores
         async function ensureAudioContext() {
             if (!audioContextStarted) {
                 await Tone.start();
@@ -311,20 +315,16 @@
             ensureAudioContext();
             const now = Tone.now();
             if (type === 'complete') {
-                // Arpejo feliz (Subiu de nível)
                 synthSuccess.triggerAttackRelease(["C5", "E5", "G5"], "8n", now);
                 synthSuccess.triggerAttackRelease("C6", "4n", now + 0.15);
             } else if (type === 'revert') {
-                // Som de voltar/cancelar
                 synthRevert.triggerAttackRelease("E4", "8n", now);
                 synthRevert.triggerAttackRelease("C4", "8n", now + 0.1);
             } else if (type === 'perfect') {
-                // 100% de conclusão
                 synthSuccess.triggerAttackRelease(["C4", "E4", "G4", "B4"], "4n", now);
                 synthSuccess.triggerAttackRelease(["C5", "E5", "G5", "C6"], "2n", now + 0.2);
             }
         }
-
 
         // --- 3. RENDERIZAÇÃO DO GRID E TAREFAS ---
         function render() {
@@ -367,7 +367,7 @@
                     
                     const isDoneStyle = task.done ? 'opacity-60 bg-slate-50 dark:bg-slate-800/80' : 'bg-white dark:bg-slate-700';
                     const textDoneStyle = task.done ? 'line-through text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-200';
-                    const catInfo = categoryData[task.category] || categoryData['pessoal']; // Fallback
+                    const catInfo = categoryData[task.category] || categoryData['pessoal'];
                     const priInfo = priorityData[task.priority] || priorityData['media'];
 
                     taskEl.className = `task-item group flex flex-col p-2.5 rounded-xl border border-slate-100 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 transition-all ${isDoneStyle}`;
@@ -397,7 +397,6 @@
 
                 card.appendChild(listContainer);
 
-                // Rodapé de Adição com novo select
                 const footer = document.createElement('div');
                 footer.className = `p-3 border-t border-slate-100 dark:border-slate-700 ${theme.bg}`;
                 
@@ -445,13 +444,11 @@
 
             renderSummaryCard(grid);
             
-            // Se o modal do gráfico estiver aberto, atualiza o gráfico
             if(document.getElementById('stats-modal').classList.contains('active')) {
                 updateChart();
             }
         }
 
-        // --- STREAMING_CHUNK:Lógica de Status, Ações do Usuário e Gráfico ---
         function renderSummaryCard(grid) {
             const summaryCard = document.createElement('div');
             summaryCard.className = `flex flex-col rounded-2xl border border-slate-700 bg-slate-900 text-white overflow-hidden shadow-lg h-[480px]`;
@@ -460,9 +457,7 @@
             plannerData.forEach(day => { totalTasks += day.tasks.length; completedTasks += day.tasks.filter(t => t.done).length; });
             const progressPercentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
-            // Tocar som especial se atingir 100%
             if (progressPercentage === 100 && totalTasks > 0) {
-                // Um pequeno debounce para não tocar infinitamente
                 if(!window.reached100) { playSound('perfect'); window.reached100 = true; }
             } else {
                 window.reached100 = false;
@@ -501,92 +496,144 @@
             grid.appendChild(summaryCard);
         }
 
-        // Drag & Drop
         function handleDragStart(e, dayId, taskId) { draggedTask = { dayId, taskId }; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => e.target.style.opacity = '0.4', 0); }
         function handleDragEnd(e) { e.target.style.opacity = '1'; draggedTask = null; }
         async function handleDrop(e, targetDayId) {
-            if (!draggedTask || draggedTask.dayId === targetDayId || !currentUser) return;
-            try {
-                // Atualiza o dia da tarefa direto no Banco de Dados
-                const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', draggedTask.taskId);
-                await updateDoc(taskRef, { dayId: targetDayId });
-            } catch(error) { console.error(error); }
+            if (!draggedTask || draggedTask.dayId === targetDayId) return;
+            
+            if (isCloudEnabled && currentUser) {
+                try {
+                    const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', draggedTask.taskId);
+                    await updateDoc(taskRef, { dayId: targetDayId });
+                } catch(error) { console.error(error); }
+            } else {
+                const sourceDay = plannerData.find(d => d.id === draggedTask.dayId);
+                const targetDay = plannerData.find(d => d.id === targetDayId);
+                const taskIndex = sourceDay.tasks.findIndex(t => t.id === draggedTask.taskId);
+                
+                if (taskIndex > -1) {
+                    const [task] = sourceDay.tasks.splice(taskIndex, 1);
+                    targetDay.tasks.push(task);
+                    render();
+                }
+            }
             draggedTask = null;
         }
 
-        // CRUD Simples com Sincronização em Nuvem
         function showAddTaskInput(dayId) { addingTaskToDay = dayId; render(); }
         function cancelAddTask() { addingTaskToDay = null; render(); }
         
         async function saveNewTask(dayId) {
-            if (!currentUser) return;
             const input = document.getElementById(`input-${dayId}`), cat = document.getElementById(`cat-${dayId}`), pri = document.getElementById(`pri-${dayId}`);
             if (input.value.trim()) {
-                const tasksRef = collection(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks');
-                try {
-                    await addDoc(tasksRef, {
-                        dayId: dayId,
-                        text: input.value.trim(),
-                        done: false,
-                        category: cat.value,
-                        priority: pri.value
-                    });
-                    addingTaskToDay = null; 
-                    // Obs: A tela será atualizada automaticamente pelo Listener Real-Time (onSnapshot)
-                } catch(error) { console.error(error); }
+                if (isCloudEnabled && currentUser) {
+                    const tasksRef = collection(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks');
+                    try {
+                        await addDoc(tasksRef, {
+                            dayId: dayId,
+                            text: input.value.trim(),
+                            done: false,
+                            category: cat.value,
+                            priority: pri.value
+                        });
+                        addingTaskToDay = null; 
+                    } catch(error) { console.error(error); }
+                } else {
+                    const day = plannerData.find(d => d.id === dayId);
+                    if (day) {
+                        day.tasks.push({
+                            id: generateId(),
+                            text: input.value.trim(),
+                            done: false,
+                            category: cat.value,
+                            priority: pri.value
+                        });
+                    }
+                    addingTaskToDay = null;
+                    render();
+                }
             }
         }
         
         async function deleteTask(dayId, taskId) {
-            if (!currentUser) return;
-            try {
-                const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', taskId);
-                await deleteDoc(taskRef);
-            } catch(error) { console.error(error); }
+            if (isCloudEnabled && currentUser) {
+                try {
+                    const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', taskId);
+                    await deleteDoc(taskRef);
+                } catch(error) { console.error(error); }
+            } else {
+                const day = plannerData.find(d => d.id === dayId);
+                if (day) {
+                    day.tasks = day.tasks.filter(t => t.id !== taskId);
+                    render();
+                }
+            }
         }
 
         async function toggleTask(dayId, taskId) {
-            if (!currentUser) return;
-            const task = plannerData.find(d => d.id === dayId).tasks.find(t => t.id === taskId);
+            const day = plannerData.find(d => d.id === dayId);
+            const task = day ? day.tasks.find(t => t.id === taskId) : null;
             if (task) {
                 const newDone = !task.done;
-                try {
-                    // 1. Atualiza a Tarefa
-                    const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', taskId);
-                    await updateDoc(taskRef, { done: newDone });
-                    
-                    // 2. Calcula e Atualiza o XP Global do Usuário
-                    let newXP = totalXP;
+                
+                if (isCloudEnabled && currentUser) {
+                    try {
+                        const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', taskId);
+                        await updateDoc(taskRef, { done: newDone });
+                        
+                        let newXP = totalXP;
+                        if (newDone) {
+                            newXP += 100;
+                            playSound('complete');
+                            triggerAchievementToast();
+                        } else {
+                            newXP = Math.max(0, newXP - 100);
+                            playSound('revert');
+                        }
+                        const statsRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'stats', 'data');
+                        await setDoc(statsRef, { totalXP: newXP }, { merge: true });
+                    } catch(error) { console.error(error); }
+                } else {
+                    task.done = newDone;
                     if (newDone) {
-                        newXP += 100;
+                        totalXP += 100;
                         playSound('complete');
                         triggerAchievementToast();
                     } else {
-                        newXP = Math.max(0, newXP - 100);
+                        totalXP = Math.max(0, totalXP - 100);
                         playSound('revert');
                     }
-                    const statsRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'stats', 'data');
-                    await setDoc(statsRef, { totalXP: newXP }, { merge: true });
-                } catch(error) { console.error(error); }
+                    render();
+                }
             }
         }
 
         async function resetWeek() {
-            if (!currentUser) return;
             let changed = false;
-            const promises = [];
-            plannerData.forEach(d => d.tasks.forEach(t => { 
-                if(t.done) { 
-                    const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', t.id);
-                    promises.push(updateDoc(taskRef, { done: false }));
-                    changed = true; 
+            
+            if (isCloudEnabled && currentUser) {
+                const promises = [];
+                plannerData.forEach(d => d.tasks.forEach(t => { 
+                    if(t.done) { 
+                        const taskRef = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', t.id);
+                        promises.push(updateDoc(taskRef, { done: false }));
+                        changed = true; 
+                    }
+                }));
+                if (changed) { 
+                    try {
+                        await Promise.all(promises);
+                        playSound('revert');
+                    } catch(error) { console.error(error); }
                 }
-            }));
-            if (changed) { 
-                try {
-                    await Promise.all(promises);
+            } else {
+                plannerData.forEach(d => d.tasks.forEach(t => { 
+                    if(t.done) { t.done = false; changed = true; }
+                }));
+                if (changed) {
                     playSound('revert');
-                } catch(error) { console.error(error); }
+                    render();
+                }
             }
         }
 
@@ -599,10 +646,9 @@
             setTimeout(() => { if(toast.parentNode) toast.remove(); }, 3500);
         }
 
-        // --- Gráficos (Chart.js) e Modais ---
         function openStatsModal() {
             document.getElementById('stats-modal').classList.add('active');
-            ensureAudioContext(); // Só por garantia caso o usuário clique aqui primeiro
+            ensureAudioContext(); 
             updateChart();
         }
         function closeStatsModal() {
@@ -612,13 +658,12 @@
         function updateChart() {
             const ctx = document.getElementById('categoryChart').getContext('2d');
             
-            // Calculando XP ganho por categoria (apenas tarefas concluídas)
             const catCounts = { trabalho: 0, pessoal: 0, estudo: 0, saude: 0, financas: 0, lazer: 0 };
             
             plannerData.forEach(day => {
                 day.tasks.forEach(task => {
                     if(task.done && catCounts[task.category] !== undefined) {
-                        catCounts[task.category] += 100; // 100 XP por tarefa concluída
+                        catCounts[task.category] += 100;
                     }
                 });
             });
@@ -640,12 +685,12 @@
                             label: 'XP Conquistado',
                             data: data,
                             backgroundColor: [
-                                'rgba(59, 130, 246, 0.6)',  // Blue
-                                'rgba(99, 102, 241, 0.6)',  // Indigo
-                                'rgba(245, 158, 11, 0.6)',  // Amber
-                                'rgba(16, 185, 129, 0.6)',  // Emerald
-                                'rgba(234, 179, 8, 0.6)',   // Yellow
-                                'rgba(217, 70, 239, 0.6)'   // Fuchsia
+                                'rgba(59, 130, 246, 0.6)', 
+                                'rgba(99, 102, 241, 0.6)', 
+                                'rgba(245, 158, 11, 0.6)', 
+                                'rgba(16, 185, 129, 0.6)', 
+                                'rgba(234, 179, 8, 0.6)',  
+                                'rgba(217, 70, 239, 0.6)'  
                             ],
                             borderColor: [
                                 '#3b82f6', '#6366f1', '#f59e0b', '#10b981', '#eab308', '#d946ef'
@@ -666,7 +711,6 @@
             }
         }
 
-        // Replicação
         function openReplicateModal(dayId, taskId) {
             taskToReplicate = { sourceDayId: dayId, task: { ...plannerData.find(d => d.id === dayId).tasks.find(t => t.id === taskId) } };
             document.getElementById('rep-task-name').textContent = taskToReplicate.task.text;
@@ -682,31 +726,52 @@
             document.getElementById('replicate-modal').classList.remove('hidden');
             setTimeout(() => document.getElementById('replicate-modal').classList.remove('opacity-0'), 10);
         }
+        
         function closeReplicateModal() {
             document.getElementById('replicate-modal').classList.add('opacity-0');
             setTimeout(() => document.getElementById('replicate-modal').classList.add('hidden'), 300);
         }
+        
         async function confirmReplication() {
-            if (!currentUser) return;
-            const promises = [];
-            const tasksRef = collection(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks');
-            
-            document.querySelectorAll('#rep-days-container input:checked:not(:disabled)').forEach(cb => {
-                const targetDayId = cb.value;
-                if (targetDayId !== taskToReplicate.sourceDayId) {
-                    promises.push(addDoc(tasksRef, {
-                        dayId: targetDayId,
-                        text: taskToReplicate.task.text,
-                        done: false,
-                        category: taskToReplicate.task.category,
-                        priority: taskToReplicate.task.priority
-                    }));
-                }
-            });
-            try {
-                await Promise.all(promises);
+            if (isCloudEnabled && currentUser) {
+                const promises = [];
+                const tasksRef = collection(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks');
+                
+                document.querySelectorAll('#rep-days-container input:checked:not(:disabled)').forEach(cb => {
+                    const targetDayId = cb.value;
+                    if (targetDayId !== taskToReplicate.sourceDayId) {
+                        promises.push(addDoc(tasksRef, {
+                            dayId: targetDayId,
+                            text: taskToReplicate.task.text,
+                            done: false,
+                            category: taskToReplicate.task.category,
+                            priority: taskToReplicate.task.priority
+                        }));
+                    }
+                });
+                try {
+                    await Promise.all(promises);
+                    closeReplicateModal();
+                } catch (error) { console.error(error); }
+            } else {
+                document.querySelectorAll('#rep-days-container input:checked:not(:disabled)').forEach(cb => {
+                    const targetDayId = cb.value;
+                    if (targetDayId !== taskToReplicate.sourceDayId) {
+                        const targetDay = plannerData.find(d => d.id === targetDayId);
+                        if (targetDay) {
+                            targetDay.tasks.push({
+                                id: generateId(),
+                                text: taskToReplicate.task.text,
+                                done: false,
+                                category: taskToReplicate.task.category,
+                                priority: taskToReplicate.task.priority
+                            });
+                        }
+                    }
+                });
                 closeReplicateModal();
-            } catch (error) { console.error(error); }
+                render();
+            }
         }
 
         function toggleTheme() {
@@ -714,20 +779,11 @@
             document.documentElement.classList.toggle('dark', isDarkMode);
             document.getElementById('theme-icon').className = isDarkMode ? 'fa-solid fa-sun text-amber-400 text-lg' : 'fa-solid fa-moon text-indigo-500 text-lg';
         }
-
-        // --- SISTEMA DE AUTENTICAÇÃO E SINCRONIZAÇÃO EM NUVEM ---
         
         async function initFirebaseAndLoad() {
             try {
-                // Realiza a Autenticação do Usuário
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                await signInAnonymously(auth);
                 currentUser = auth.currentUser;
-                
-                // Inicia o download dos dados após autenticado
                 loadDataFromFirebase();
             } catch (error) {
                 console.error("Erro de Autenticação Firebase", error);
@@ -739,7 +795,6 @@
             if (!currentUser) return;
             const userId = currentUser.uid;
             
-            // 1. Escutador de XP (Total da Conta)
             const statsRef = doc(db, 'artifacts', appId, 'users', userId, 'stats', 'data');
             onSnapshot(statsRef, (docSnap) => {
                 if (docSnap.exists()) {
@@ -750,13 +805,10 @@
                 render(); 
             }, (error) => console.error("Erro ao escutar stats:", error));
 
-            // 2. Escutador em Tempo Real das Tarefas
             const tasksRef = collection(db, 'artifacts', appId, 'users', userId, 'tasks');
             onSnapshot(tasksRef, (snapshot) => {
-                // Limpa as tarefas antigas da tela
                 plannerData.forEach(day => day.tasks = []);
                 
-                // Preenche com os dados atualizados da nuvem
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     const day = plannerData.find(d => d.id === data.dayId);
@@ -774,7 +826,6 @@
             }, (error) => console.error("Erro ao escutar tarefas:", error));
         }
 
-        // Configuração de exportação de funções para a interface HTML se comunicar com o Módulo de Nuvem
         window.openStatsModal = openStatsModal;
         window.closeStatsModal = closeStatsModal;
         window.resetWeek = resetWeek;
@@ -791,14 +842,11 @@
         window.handleDragEnd = handleDragEnd;
         window.handleDrop = handleDrop;
 
-        // Init - Quando a página for aberta
         window.onload = () => {
             document.documentElement.classList.add('dark');
             
-            // Inicia Auth e carrega os dados
             initFirebaseAndLoad();
             
-            // Re-ativação das Notificações
             if ("Notification" in window) {
                 if (Notification.permission === "default") Notification.requestPermission();
                 setInterval(() => {
