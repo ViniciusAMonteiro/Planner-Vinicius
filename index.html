@@ -216,7 +216,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // === PASSO IMPORTANTE: SE CERTIFIQUE DE QUE ESTAS CHAVES SÃO AS SUAS MESMO ===
@@ -751,14 +751,14 @@
         
         // --- SISTEMA DE AUTENTICAÇÃO COM GOOGLE ---
         
-        // Função chamada pelo botão na tela de Login
+        // Função chamada pelo botão na tela de Login (Agora usando Redirect para Mobile)
         async function loginWithGoogle() {
             try {
-                await signInWithPopup(auth, provider);
-                // O estado mudará no onAuthStateChanged abaixo
+                // signInWithRedirect funciona 100% das vezes no celular, pois não usa janelas pop-up
+                await signInWithRedirect(auth, provider);
             } catch (error) {
                 console.error("Erro ao fazer login com Google:", error);
-                alert("Erro ao tentar logar. Certifique-se de que ativou o Google no painel de Authentication do Firebase.");
+                alert("Erro ao tentar logar. Certifique-se de que o domínio está autorizado no Firebase.");
             }
         }
 
