@@ -41,10 +41,8 @@
             font-family: 'Inter', sans-serif;
         }
         
-        /* Tema Gamer Customizações */
         .font-gamer { font-family: 'Orbitron', sans-serif; }
         
-        /* Notificação de Conquista (Toast) */
         #toast-container {
             position: fixed;
             bottom: 20px;
@@ -57,7 +55,7 @@
         }
         .toast-msg {
             background: rgba(15, 23, 42, 0.95);
-            border-left: 4px solid #a855f7; /* Purple neon */
+            border-left: 4px solid #a855f7;
             color: #fff;
             padding: 12px 20px;
             border-radius: 8px;
@@ -70,14 +68,9 @@
             letter-spacing: 0.05em;
             pointer-events: auto;
         }
-        @keyframes slideInToast {
-            to { transform: translateX(0); }
-        }
-        @keyframes fadeOutToast {
-            to { opacity: 0; transform: translateX(120%); }
-        }
+        @keyframes slideInToast { to { transform: translateX(0); } }
+        @keyframes fadeOutToast { to { opacity: 0; transform: translateX(120%); } }
 
-        /* Custom scrollbar */
         .task-list::-webkit-scrollbar { width: 4px; }
         .task-list::-webkit-scrollbar-track { background: transparent; }
         .task-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -94,7 +87,6 @@
         }
         .task-item:active { cursor: grabbing; }
         
-        /* Modal Customizado */
         .modal-overlay {
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(4px);
@@ -133,17 +125,14 @@
             </div>
             
             <div class="flex items-center gap-3">
-                <!-- Botão Ver Estatísticas (Gráfico) -->
                 <button onclick="openStatsModal()" class="hidden md:flex items-center gap-2 text-sm font-medium bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white px-3 py-2 rounded-lg hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all">
                     <i class="fa-solid fa-chart-bar"></i> Stats
                 </button>
                 
-                <!-- Botão Reiniciar Semana -->
                 <button onclick="resetWeek()" class="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">
                     <i class="fa-solid fa-rotate-right"></i> Reiniciar
                 </button>
                 
-                <!-- Dark Mode Toggle -->
                 <button onclick="toggleTheme()" class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors text-slate-600 dark:text-slate-300 w-10 h-10 flex items-center justify-center">
                     <i id="theme-icon" class="fa-solid fa-moon text-indigo-500"></i>
                 </button>
@@ -152,13 +141,11 @@
     </header>
 
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <!-- O grid principal -->
         <div id="planner-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Dias injetados via JS -->
+            <!-- Os dias e tarefas serão injetados aqui pelo JavaScript -->
         </div>
     </main>
 
-    <!-- Modal de Replicação -->
     <div id="replicate-modal" class="fixed inset-0 bg-slate-900/50 dark:bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center transition-opacity duration-300 opacity-0">
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-11/12 max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="replicate-modal-content">
             <div class="p-5 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
@@ -178,11 +165,9 @@
         </div>
     </div>
 
-    <!-- Novo Modal de Estatísticas (Chart.js) -->
     <div id="stats-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden relative">
             <div class="absolute -right-10 -top-10 w-40 h-40 bg-fuchsia-600 rounded-full mix-blend-screen filter blur-3xl opacity-20"></div>
-            
             <div class="p-5 border-b border-slate-800 flex justify-between items-center relative z-10">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-chart-pie text-fuchsia-400 text-xl"></i>
@@ -190,7 +175,6 @@
                 </div>
                 <button onclick="closeStatsModal()" class="text-slate-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-800"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-6 relative z-10">
                 <div class="mb-4 text-center">
                     <p class="text-sm text-slate-400">Distribuição de XP ganho por categoria de missão.</p>
@@ -208,13 +192,12 @@
         </div>
     </footer>
 
-    <!-- Container para as frases motivacionais / conquistas -->
     <div id="toast-container"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // As chaves exatas do seu banco de dados
         const firebaseConfig = {
@@ -227,18 +210,21 @@
         };
         
         const appId = 'planner-vinicius';
-        const isCloudEnabled = true; // Ativando a nuvem para o CRUD principal
-
+        
+        // isCloudEnabled começará falso e só ficará verdadeiro se tudo der certo na conexão
+        let isCloudEnabled = false; 
         let appFirebase, db, auth;
+        let currentUser = null;
+
         try {
             appFirebase = initializeApp(firebaseConfig);
             db = getFirestore(appFirebase);
             auth = getAuth(appFirebase);
-        } catch(e) { console.error("Firebase init error", e); }
-        let currentUser = null;
+        } catch(e) { 
+            console.error("Erro ao inicializar Firebase", e); 
+        }
 
-        // --- 1. CONFIGURAÇÕES & DADOS ---
-        
+        // --- STREAMING_CHUNK: Dados Base do Aplicativo ---
         const categoryData = {
             trabalho: { label: 'Trabalho', icon: 'fa-briefcase', class: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border-blue-200 dark:border-blue-800' },
             pessoal: { label: 'Pessoal', icon: 'fa-user', class: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' },
@@ -290,12 +276,11 @@
 
         function generateId() { return Math.random().toString(36).substr(2, 9); }
 
-        // --- 2. SISTEMA DE ÁUDIO (TONE.JS) ---
+        // --- STREAMING_CHUNK: Sistema de Áudio ---
         const synthSuccess = new Tone.PolySynth(Tone.Synth, {
             oscillator: { type: "sine" },
             envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 1 }
         }).toDestination();
-        
         synthSuccess.volume.value = -10;
 
         const synthRevert = new Tone.Synth({
@@ -326,7 +311,7 @@
             }
         }
 
-        // --- 3. RENDERIZAÇÃO DO GRID E TAREFAS ---
+        // --- STREAMING_CHUNK: Renderização Principal ---
         function render() {
             const grid = document.getElementById('planner-grid');
             grid.innerHTML = '';
@@ -449,6 +434,7 @@
             }
         }
 
+        // --- STREAMING_CHUNK: Lógica do Dashboard ---
         function renderSummaryCard(grid) {
             const summaryCard = document.createElement('div');
             summaryCard.className = `flex flex-col rounded-2xl border border-slate-700 bg-slate-900 text-white overflow-hidden shadow-lg h-[480px]`;
@@ -496,6 +482,7 @@
             grid.appendChild(summaryCard);
         }
 
+        // --- STREAMING_CHUNK: Operações de Tarefas ---
         function handleDragStart(e, dayId, taskId) { draggedTask = { dayId, taskId }; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => e.target.style.opacity = '0.4', 0); }
         function handleDragEnd(e) { e.target.style.opacity = '1'; draggedTask = null; }
         async function handleDrop(e, targetDayId) {
@@ -537,7 +524,10 @@
                             priority: pri.value
                         });
                         addingTaskToDay = null; 
-                    } catch(error) { console.error(error); }
+                    } catch(error) { 
+                        console.error(error); 
+                        alert("Erro ao salvar no banco. Verifique as permissões (Rules) no Firebase.");
+                    }
                 } else {
                     const day = plannerData.find(d => d.id === dayId);
                     if (day) {
@@ -646,6 +636,7 @@
             setTimeout(() => { if(toast.parentNode) toast.remove(); }, 3500);
         }
 
+        // --- STREAMING_CHUNK: Gráficos e UI Extra ---
         function openStatsModal() {
             document.getElementById('stats-modal').classList.add('active');
             ensureAudioContext(); 
@@ -685,28 +676,14 @@
                             label: 'XP Conquistado',
                             data: data,
                             backgroundColor: [
-                                'rgba(59, 130, 246, 0.6)', 
-                                'rgba(99, 102, 241, 0.6)', 
-                                'rgba(245, 158, 11, 0.6)', 
-                                'rgba(16, 185, 129, 0.6)', 
-                                'rgba(234, 179, 8, 0.6)',  
-                                'rgba(217, 70, 239, 0.6)'  
+                                'rgba(59, 130, 246, 0.6)', 'rgba(99, 102, 241, 0.6)', 'rgba(245, 158, 11, 0.6)', 
+                                'rgba(16, 185, 129, 0.6)', 'rgba(234, 179, 8, 0.6)', 'rgba(217, 70, 239, 0.6)'  
                             ],
-                            borderColor: [
-                                '#3b82f6', '#6366f1', '#f59e0b', '#10b981', '#eab308', '#d946ef'
-                            ],
-                            borderWidth: 1,
-                            borderRadius: 4
+                            borderColor: ['#3b82f6', '#6366f1', '#f59e0b', '#10b981', '#eab308', '#d946ef'],
+                            borderWidth: 1, borderRadius: 4
                         }]
                     },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: {
-                            y: { beginAtZero: true, grid: { color: 'rgba(51, 65, 85, 0.5)' } },
-                            x: { grid: { display: false } }
-                        }
-                    }
+                    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(51, 65, 85, 0.5)' } }, x: { grid: { display: false } } } }
                 });
             }
         }
@@ -726,12 +703,10 @@
             document.getElementById('replicate-modal').classList.remove('hidden');
             setTimeout(() => document.getElementById('replicate-modal').classList.remove('opacity-0'), 10);
         }
-        
         function closeReplicateModal() {
             document.getElementById('replicate-modal').classList.add('opacity-0');
             setTimeout(() => document.getElementById('replicate-modal').classList.add('hidden'), 300);
         }
-        
         async function confirmReplication() {
             if (isCloudEnabled && currentUser) {
                 const promises = [];
@@ -741,11 +716,8 @@
                     const targetDayId = cb.value;
                     if (targetDayId !== taskToReplicate.sourceDayId) {
                         promises.push(addDoc(tasksRef, {
-                            dayId: targetDayId,
-                            text: taskToReplicate.task.text,
-                            done: false,
-                            category: taskToReplicate.task.category,
-                            priority: taskToReplicate.task.priority
+                            dayId: targetDayId, text: taskToReplicate.task.text, done: false,
+                            category: taskToReplicate.task.category, priority: taskToReplicate.task.priority
                         }));
                     }
                 });
@@ -760,11 +732,8 @@
                         const targetDay = plannerData.find(d => d.id === targetDayId);
                         if (targetDay) {
                             targetDay.tasks.push({
-                                id: generateId(),
-                                text: taskToReplicate.task.text,
-                                done: false,
-                                category: taskToReplicate.task.category,
-                                priority: taskToReplicate.task.priority
+                                id: generateId(), text: taskToReplicate.task.text, done: false,
+                                category: taskToReplicate.task.category, priority: taskToReplicate.task.priority
                             });
                         }
                     }
@@ -780,13 +749,18 @@
             document.getElementById('theme-icon').className = isDarkMode ? 'fa-solid fa-sun text-amber-400 text-lg' : 'fa-solid fa-moon text-indigo-500 text-lg';
         }
         
+        // --- STREAMING_CHUNK: Lógica Segura do Firebase ---
         async function initFirebaseAndLoad() {
             try {
                 await signInAnonymously(auth);
                 currentUser = auth.currentUser;
+                isCloudEnabled = true; // Só ativa a nuvem se logar com sucesso
+                console.log("Conectado à nuvem com sucesso!");
                 loadDataFromFirebase();
             } catch (error) {
                 console.error("Erro de Autenticação Firebase", error);
+                alert("Aviso: Nuvem não conectada. Verifique se ativou o 'Login Anônimo' no painel Authentication do Firebase. O aplicativo funcionará usando apenas a memória local do navegador por enquanto.");
+                isCloudEnabled = false;
                 render(); 
             }
         }
@@ -797,13 +771,12 @@
             
             const statsRef = doc(db, 'artifacts', appId, 'users', userId, 'stats', 'data');
             onSnapshot(statsRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    totalXP = docSnap.data().totalXP || 0;
-                } else {
-                    totalXP = 0;
-                }
+                if (docSnap.exists()) { totalXP = docSnap.data().totalXP || 0; } 
+                else { totalXP = 0; }
                 render(); 
-            }, (error) => console.error("Erro ao escutar stats:", error));
+            }, (error) => {
+                console.error("Erro ao ler XP:", error);
+            });
 
             const tasksRef = collection(db, 'artifacts', appId, 'users', userId, 'tasks');
             onSnapshot(tasksRef, (snapshot) => {
@@ -814,16 +787,18 @@
                     const day = plannerData.find(d => d.id === data.dayId);
                     if (day) {
                         day.tasks.push({
-                            id: docSnap.id,
-                            text: data.text,
-                            done: data.done,
-                            priority: data.priority,
-                            category: data.category
+                            id: docSnap.id, text: data.text, done: data.done,
+                            priority: data.priority, category: data.category
                         });
                     }
                 });
                 render(); 
-            }, (error) => console.error("Erro ao escutar tarefas:", error));
+            }, (error) => {
+                console.error("Erro ao ler tarefas. Problema nas regras (Rules)?", error);
+                alert("Aviso: Sem permissão de leitura. Vá no Firebase > Firestore Database > Regras (Rules) e mude para: allow read, write: if true; O app continuará apenas na memória local.");
+                isCloudEnabled = false;
+                render();
+            });
         }
 
         window.openStatsModal = openStatsModal;
@@ -844,7 +819,6 @@
 
         window.onload = () => {
             document.documentElement.classList.add('dark');
-            
             initFirebaseAndLoad();
             
             if ("Notification" in window) {
