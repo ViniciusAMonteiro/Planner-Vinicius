@@ -15,8 +15,8 @@
       :root {
         --bg: #0b1020;
         --bg-2: #12192b;
-        --panel: rgba(16, 21, 35, 0.94);
-        --panel-2: rgba(22, 30, 47, 0.96);
+        --panel: rgba(16, 21, 35, 0.92);
+        --panel-2: rgba(22, 30, 47, 0.95);
         --line: rgba(151, 166, 203, 0.18);
         --text: #eef2ff;
         --text-strong: #ffffff;
@@ -738,17 +738,8 @@
         box-shadow: inset 0 0 0 1px rgba(255,255,255,0.01);
       }
 
-      .task-item.dragging {
-        opacity: 0.5;
-        border-color: rgba(94,231,255,0.5);
-      }
-
-      .task-item:active {
-        border-color: rgba(167,139,250,0.3);
-        transform: translateY(1px);
-        background: rgba(167,139,250,0.08);
-      }
-
+      .task-item.dragging { opacity: 0.5; border-color: rgba(94,231,255,0.5); }
+      .task-item:active { border-color: rgba(167,139,250,0.3); transform: translateY(1px); background: rgba(167,139,250,0.08); }
       .task-item.completed { opacity: 0.72; }
 
       .task-handle {
@@ -1548,7 +1539,6 @@
         els.playerNameDisplay.textContent = state.profileName || 'Astra';
         els.playerTitle.textContent = state.profileTitle || 'Initiate';
         const level = computeLevel(state.xp);
-        const current = state.xp % 100;
         const next = xpForNextLevel(level);
         const fill = Math.min((state.xp / next) * 100, 100);
 
