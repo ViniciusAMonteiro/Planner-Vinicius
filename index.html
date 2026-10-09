@@ -200,10 +200,7 @@
       z-index: 1;
     }
 
-    .player-info {
-      flex: 1;
-      min-width: 0;
-    }
+    .player-info { flex: 1; min-width: 0; }
 
     .player-label {
       font-size: 10px;
@@ -259,10 +256,7 @@
       pointer-events: none;
     }
 
-    .progress-section {
-      position: relative;
-      z-index: 1;
-    }
+    .progress-section { position: relative; z-index: 1; }
 
     .progress-text {
       display: flex;
@@ -431,48 +425,20 @@
       letter-spacing: 0.08em;
     }
 
-    .quest-log {
-      display: grid;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .quest-log-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 9px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(167,139,250,0.08);
-      color: var(--text-muted);
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .quest-log-item strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .quest-log-item .status {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 7px;
-      border-radius: 999px;
-      background: rgba(94,231,255,0.1);
-      color: var(--accent-2);
-      border: 1px solid rgba(94,231,255,0.2);
-    }
-
-    .achievements-list {
+    .quest-log,
+    .achievements-list,
+    .loot-list,
+    .shop-list,
+    .daily-mission-card {
       display: grid;
       gap: 8px;
     }
 
-    .achievement-item {
+    .quest-log-item,
+    .achievement-item,
+    .loot-item,
+    .shop-item,
+    .daily-mission-box {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -483,7 +449,31 @@
       font-size: 12px;
     }
 
-    .achievement-icon {
+    .quest-log-item strong,
+    .achievement-copy strong,
+    .loot-item strong,
+    .shop-item strong,
+    .daily-mission-box strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .quest-log-item .status {
+      margin-left: auto;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(94,231,255,0.1);
+      color: var(--accent-2);
+      border: 1px solid rgba(94,231,255,0.2);
+    }
+
+    .achievement-icon,
+    .loot-icon,
+    .shop-icon,
+    .daily-icon {
       width: 28px;
       height: 28px;
       border-radius: 9px;
@@ -492,24 +482,93 @@
       color: var(--accent);
       background: rgba(167,139,250,0.12);
       border: 1px solid rgba(167,139,250,0.2);
+      flex-shrink: 0;
     }
 
-    .achievement-copy {
+    .achievement-copy,
+    .loot-copy,
+    .shop-copy,
+    .daily-copy {
       flex: 1;
       min-width: 0;
     }
 
-    .achievement-copy strong {
-      display: block;
-      color: var(--text);
-      font-size: 12px;
-      margin-bottom: 2px;
-    }
-
-    .achievement-copy span {
+    .achievement-copy span,
+    .loot-copy span,
+    .shop-copy span,
+    .daily-copy span {
       display: block;
       color: var(--text-muted);
       font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .daily-mission-box {
+      justify-content: space-between;
+      padding: 12px 10px;
+    }
+
+    .daily-mission-box .reward-pill {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      color: var(--warning);
+      background: rgba(247, 201, 109, 0.12);
+      border: 1px solid rgba(247, 201, 109, 0.2);
+      padding: 4px 8px;
+    }
+
+    .claim-btn,
+    .sell-btn,
+    .equip-btn,
+    .focus-action,
+    .form-submit {
+      transition: 0.2s ease;
+    }
+
+    .claim-btn,
+    .equip-btn,
+    .form-submit {
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.72));
+      color: var(--bg);
+      font-weight: 800;
+      border: 1px solid rgba(167,139,250,0.3);
+      box-shadow: 0 10px 22px var(--accent-glow);
+    }
+
+    .sell-btn {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(167,139,250,0.12);
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .shop-item,
+    .loot-item {
+      justify-content: space-between;
+    }
+
+    .shop-item .shop-copy {
+      margin-right: auto;
+    }
+
+    .pill-tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(135, 206, 250, 0.12);
+      border: 1px solid rgba(94,231,255,0.2);
+      color: var(--accent-2);
+      padding: 4px 7px;
+      border-radius: 999px;
     }
 
     .focus-card {
@@ -640,9 +699,7 @@
       overflow: hidden;
     }
 
-    .calendar-day.muted {
-      opacity: 0.4;
-    }
+    .calendar-day.muted { opacity: 0.4; }
 
     .calendar-day.today {
       background: rgba(167,139,250,0.12);
@@ -651,9 +708,7 @@
       box-shadow: 0 0 0 1px rgba(167,139,250,0.10);
     }
 
-    .calendar-day.has-task {
-      border-color: rgba(94,231,255,0.35);
-    }
+    .calendar-day.has-task { border-color: rgba(94,231,255,0.35); }
 
     .calendar-day .dot {
       position: absolute;
@@ -730,9 +785,7 @@
       background: rgba(167,139,250,0.08);
     }
 
-    .task-item.completed {
-      opacity: 0.72;
-    }
+    .task-item.completed { opacity: 0.72; }
 
     .task-checkbox {
       min-width: 24px;
@@ -756,10 +809,7 @@
       box-shadow: 0 0 14px var(--accent-glow);
     }
 
-    .task-content {
-      flex: 1;
-      min-width: 0;
-    }
+    .task-content { flex: 1; min-width: 0; }
 
     .task-title {
       font-size: 13px;
@@ -794,7 +844,8 @@
       padding: 4px 8px;
     }
 
-    .task-diff {
+    .task-diff,
+    .task-date {
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
@@ -803,15 +854,6 @@
       background: rgba(255,255,255,0.04);
       padding: 4px 8px;
       border-radius: 6px;
-    }
-
-    .task-date {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--text-muted);
-      border-radius: 6px;
-      background: rgba(255,255,255,0.04);
-      padding: 4px 8px;
     }
 
     .task-delete {
@@ -984,9 +1026,7 @@
       padding: 18px;
     }
 
-    .form-group {
-      margin-bottom: 14px;
-    }
+    .form-group { margin-bottom: 14px; }
 
     .form-label {
       display: block;
@@ -1056,18 +1096,10 @@
       color: var(--bg);
       font-weight: 800;
       margin-top: 12px;
-      transition: 0.2s ease;
       box-shadow: 0 10px 22px var(--accent-glow);
     }
 
-    .form-submit:active {
-      opacity: 0.9;
-      transform: translateY(1px);
-    }
-
-    .profile-content {
-      text-align: center;
-    }
+    .profile-content { text-align: center; }
 
     .profile-avatar {
       width: 90px;
@@ -1239,6 +1271,30 @@
             </div>
           </div>
         </div>
+
+        <div class="guild-card">
+          <div class="guild-card-header">
+            <span>Missão diária</span>
+            <i class="fa-solid fa-shield-heart"></i>
+          </div>
+          <div class="daily-mission-card" id="dailyMissionCard"></div>
+        </div>
+
+        <div class="guild-card">
+          <div class="guild-card-header">
+            <span>Inventário</span>
+            <i class="fa-solid fa-bag-shopping"></i>
+          </div>
+          <div class="loot-list" id="lootList"></div>
+        </div>
+
+        <div class="guild-card">
+          <div class="guild-card-header">
+            <span>Loja de itens</span>
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <div class="shop-list" id="shopList"></div>
+        </div>
       </div>
 
       <div class="calendar-panel">
@@ -1407,13 +1463,28 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'nekoquest-planner-v2';
+    const STORAGE_KEY = 'nekoquest-planner-v3';
     const DEFAULT_STATE = {
       profileName: 'Astra',
       profileRole: 'Guild Master',
       themeColor: '#a78bfa',
       selectedDifficulty: 100,
       filter: 'all',
+      xp: 0,
+      totalCompleted: 0,
+      inventory: ['ember-armor', 'moon-potion'],
+      equipped: 'ember-armor',
+      dailyMission: {
+        date: getToday(),
+        claimed: false,
+        title: 'Concluir 2 missões do dia',
+        reward: 120
+      },
+      loot: [
+        { id: 'ember-armor', name: 'Armadura Ember', type: 'armor', rarity: 'raro', desc: 'Bônus de espírito e foco', icon: 'fa-solid fa-shield-halved' },
+        { id: 'moon-potion', name: 'Poção da Lua', type: 'potion', rarity: 'épico', desc: 'Recarga de energia mágica', icon: 'fa-solid fa-wine-bottle' },
+        { id: 'wind-sigil', name: 'Selo do Vento', type: 'sigil', rarity: 'lendário', desc: 'Acelera progresso e disciplina', icon: 'fa-solid fa-wind' }
+      ],
       tasks: [
         { id: '1', title: 'Estudar JavaScript', xp: 100, priority: 'media', date: getToday(), done: false },
         { id: '2', title: 'Treinar foco por 30 min', xp: 50, priority: 'baixa', date: getToday(), done: false },
@@ -1470,6 +1541,7 @@
           if (focusInterval) {
             clearInterval(focusInterval);
             focusInterval = null;
+            document.getElementById('focusStartBtn').textContent = 'Iniciar';
           }
         });
       });
@@ -1529,10 +1601,9 @@
       });
 
       document.getElementById('tasksContainer').addEventListener('click', (event) => {
-        const target = event.target.closest('.task-checkbox');
-        if (target) {
-          const taskId = target.dataset.id;
-          toggleTask(taskId);
+        const checkbox = event.target.closest('.task-checkbox');
+        if (checkbox) {
+          toggleTask(checkbox.dataset.id);
           return;
         }
 
@@ -1540,6 +1611,25 @@
         if (deleteBtn) {
           removeTask(deleteBtn.dataset.id);
         }
+      });
+
+      document.getElementById('shopList').addEventListener('click', (event) => {
+        const button = event.target.closest('.equipped-btn');
+        const sellBtn = event.target.closest('.sell-btn');
+        if (button) {
+          const itemId = button.dataset.id;
+          equipItem(itemId);
+          return;
+        }
+        if (sellBtn) {
+          const itemId = sellBtn.dataset.id;
+          sellItem(itemId);
+        }
+      });
+
+      document.getElementById('dailyMissionCard').addEventListener('click', (event) => {
+        const button = event.target.closest('.claim-btn');
+        if (button) claimDailyMission();
       });
 
       window.addEventListener('click', (event) => {
@@ -1568,6 +1658,12 @@
         themeColor: state.themeColor,
         selectedDifficulty: state.selectedDifficulty,
         filter: state.filter,
+        xp: state.xp,
+        totalCompleted: state.totalCompleted,
+        inventory: state.inventory,
+        equipped: state.equipped,
+        dailyMission: state.dailyMission,
+        loot: state.loot,
         tasks: state.tasks
       }));
     }
@@ -1588,6 +1684,9 @@
       renderCalendar();
       renderQuestLog();
       renderAchievements();
+      renderDailyMission();
+      renderInventory();
+      renderShop();
       renderTasks();
       renderFocusTimer();
       updateProgress();
@@ -1605,7 +1704,7 @@
     function renderStats() {
       const total = state.tasks.length;
       const done = state.tasks.filter(task => task.done).length;
-      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0);
+      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0) + (state.xp || 0);
       const nextLevelXP = 100;
 
       document.getElementById('statTotal').textContent = String(total);
@@ -1625,7 +1724,9 @@
 
       const title = chooseTitle(level);
       document.getElementById('playerTitle').textContent = title;
-      state.profileRole = state.profileRole || title;
+      if (!state.profileRole || state.profileRole === 'Guild Master') {
+        state.profileRole = title;
+      }
       document.getElementById('profileRole').textContent = state.profileRole;
     }
 
@@ -1670,6 +1771,81 @@
           </div>
         </div>
       `).join('');
+    }
+
+    function renderDailyMission() {
+      const card = document.getElementById('dailyMissionCard');
+      const mission = state.dailyMission;
+      const today = getToday();
+
+      if (mission.date !== today) {
+        state.dailyMission = { date: today, claimed: false, title: 'Concluir 2 missões do dia', reward: 120 };
+      }
+
+      const buttonLabel = mission.claimed ? 'Recebido' : 'Claim';
+      card.innerHTML = `
+        <div class="daily-mission-box">
+          <div class="daily-copy">
+            <div class="daily-icon"><i class="fa-solid fa-star"></i></div>
+            <div>
+              <strong>${mission.title}</strong>
+              <span>Recompensa: ${mission.reward} XP</span>
+            </div>
+          </div>
+          <div class="reward-pill">+ ${mission.reward} XP</div>
+          <button class="claim-btn" data-action="claim" ${mission.claimed ? 'disabled' : ''}>${buttonLabel}</button>
+        </div>
+      `;
+    }
+
+    function renderInventory() {
+      const list = document.getElementById('lootList');
+      const owned = state.loot.filter(item => state.inventory.includes(item.id));
+
+      if (!owned.length) {
+        list.innerHTML = `
+          <div class="loot-item">
+            <div class="loot-copy">
+              <strong>Baú vazio</strong>
+              <span>Complete missões para ganhar loot.</span>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = owned.map(item => `
+        <div class="loot-item">
+          <div class="loot-icon"><i class="${item.icon}"></i></div>
+          <div class="loot-copy">
+            <strong>${item.name}</strong>
+            <span>${item.rarity} · ${item.desc}</span>
+          </div>
+          <span class="pill-tag">${state.equipped === item.id ? 'equipado' : 'no baú'}</span>
+        </div>
+      `).join('');
+    }
+
+    function renderShop() {
+      const list = document.getElementById('shopList');
+      const itemList = state.loot.map(item => {
+        const owned = state.inventory.includes(item.id);
+        const equipped = state.equipped === item.id;
+        return `
+          <div class="shop-item">
+            <div class="shop-icon"><i class="${item.icon}"></i></div>
+            <div class="shop-copy">
+              <strong>${item.name}</strong>
+              <span>${item.rarity} · ${item.desc}</span>
+            </div>
+            ${owned ? (
+              equipped ? '<button class="sell-btn" data-id="'+item.id+'">Equipado</button>' : '<button class="equip-btn equipped-btn" data-id="'+item.id+'">Equipar</button>'
+            ) : '<button class="sell-btn" data-id="'+item.id+'">+50</button>'}
+          </div>
+        `;
+      }).join('');
+
+      list.innerHTML = itemList;
     }
 
     function renderTasks() {
@@ -1776,15 +1952,7 @@
         return;
       }
 
-      const task = {
-        id: String(Date.now()),
-        title,
-        xp,
-        priority,
-        date,
-        done: false
-      };
-
+      const task = { id: String(Date.now()), title, xp, priority, date, done: false };
       state.tasks.unshift(task);
       titleInput.value = '';
       document.getElementById('questDate').value = '';
@@ -1804,6 +1972,12 @@
       task.completedAt = task.done ? new Date().toISOString() : null;
 
       if (task.done) {
+        state.totalCompleted = (state.totalCompleted || 0) + 1;
+        state.xp = (state.xp || 0) + Number(task.xp || 0);
+        const reward = Number(task.xp || 0);
+        if (reward > 0) {
+          maybeGrantLoot(reward);
+        }
         showToast(randomRpgPhrase());
         playSound('complete');
       }
@@ -1829,6 +2003,70 @@
       closeModal('profileModal');
       showToast('Perfil atualizado!');
       playSound('create');
+    }
+
+    function equipItem(itemId) {
+      state.equipped = itemId;
+      saveState();
+      renderInventory();
+      renderShop();
+      showToast('Item equipado!');
+    }
+
+    function sellItem(itemId) {
+      const item = state.loot.find(entry => entry.id === itemId);
+      if (!item) return;
+      const owned = state.inventory.includes(itemId);
+      if (!owned) {
+        if ((state.xp || 0) < 50) {
+          showToast('Você precisa de mais XP para comprar este item.');
+          return;
+        }
+        state.xp -= 50;
+        state.inventory.push(itemId);
+        saveState();
+        renderAll();
+        showToast(`Você comprou ${item.name}!`);
+        return;
+      }
+      state.equipped = itemId;
+      saveState();
+      renderAll();
+      showToast(`${item.name} equipado.`);
+    }
+
+    function claimDailyMission() {
+      if (state.dailyMission.claimed) {
+        showToast('A missão diária já foi concluída hoje.');
+        return;
+      }
+      const now = getToday();
+      if (state.dailyMission.date !== now) {
+        state.dailyMission = { date: now, claimed: false, title: 'Concluir 2 missões do dia', reward: 120 };
+      }
+      const doneToday = state.tasks.filter(task => task.done && task.date === now).length;
+      if (doneToday < 2) {
+        showToast('Você precisa concluir 2 missões hoje para receber o prêmio.');
+        return;
+      }
+      state.dailyMission.claimed = true;
+      state.xp = (state.xp || 0) + Number(state.dailyMission.reward || 0);
+      saveState();
+      renderDailyMission();
+      renderStats();
+      showToast(`Recompensa diária recebida: +${state.dailyMission.reward} XP`);
+      playSound('complete');
+    }
+
+    function maybeGrantLoot(reward) {
+      if (reward < 80) return;
+      const rarities = ['comum', 'raro', 'épico'];
+      const itemPool = state.loot.filter(item => !state.inventory.includes(item.id));
+      if (!itemPool.length) return;
+      const randomItem = itemPool[Math.floor(Math.random() * itemPool.length)];
+      state.inventory.push(randomItem.id);
+      showToast(`Loot encontrado: ${randomItem.name}!`);
+      saveState();
     }
 
     function openModal(id) {
@@ -1943,7 +2181,7 @@
     }
 
     function updateProgress() {
-      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0);
+      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0) + (state.xp || 0);
       const current = xp % 100;
       const percent = Math.min(100, (current / 100) * 100);
       document.getElementById('xpCurrent').textContent = current + ' XP';
