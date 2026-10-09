@@ -403,6 +403,173 @@
       font-weight: 600;
     }
 
+    .guild-board {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .guild-card {
+      background: linear-gradient(135deg, rgba(18,21,31,0.7), rgba(15,17,26,0.8));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .guild-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .quest-log {
+      display: grid;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .quest-log-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(167,139,250,0.08);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .quest-log-item strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .quest-log-item .status {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(94,231,255,0.1);
+      color: var(--accent-2);
+      border: 1px solid rgba(94,231,255,0.2);
+    }
+
+    .achievements-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .achievement-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(167,139,250,0.08);
+      font-size: 12px;
+    }
+
+    .achievement-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: rgba(167,139,250,0.12);
+      border: 1px solid rgba(167,139,250,0.2);
+    }
+
+    .achievement-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .achievement-copy strong {
+      display: block;
+      color: var(--text);
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .achievement-copy span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    .focus-card {
+      display: grid;
+      gap: 10px;
+    }
+
+    .focus-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .focus-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(167,139,250,0.2);
+      background: rgba(255,255,255,0.02);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .focus-pill.active {
+      background: rgba(167,139,250,0.14);
+      color: var(--accent);
+      border-color: rgba(167,139,250,0.35);
+    }
+
+    .focus-time {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-strong);
+      letter-spacing: -0.04em;
+      text-align: center;
+      padding: 8px 0 2px;
+    }
+
+    .focus-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .focus-action {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(167,139,250,0.18);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .focus-action.primary {
+      background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.72));
+      color: var(--bg);
+      border-color: transparent;
+    }
+
     .calendar-panel,
     .tasks-section {
       margin-bottom: 18px;
@@ -961,6 +1128,12 @@
 
     @media (min-width: 640px) {
       .container { max-width: 600px; margin: 0 auto; }
+      .guild-board {
+        grid-template-columns: 1.2fr 1fr;
+      }
+      .guild-card:last-child {
+        grid-column: 1 / -1;
+      }
       .hero-content {
         position: absolute;
         left: 18px;
@@ -1014,7 +1187,7 @@
           <div class="stat-value" id="statTotal">0</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">Concluídas</div>
+          <div class="stat-label">Concluidas</div>
           <div class="stat-value" id="statDone">0</div>
         </div>
         <div class="stat-box">
@@ -1028,6 +1201,43 @@
         <div class="hero-content">
           <h2 class="hero-title">Suba de nível<br>completando <span>suas metas.</span></h2>
           <p class="hero-desc">Crie missões, conclua objetivos e acompanhe seu progresso.</p>
+        </div>
+      </div>
+
+      <div class="guild-board">
+        <div class="guild-card">
+          <div class="guild-card-header">
+            <span>Quest Board</span>
+            <i class="fa-solid fa-scroll"></i>
+          </div>
+          <div class="quest-log" id="questLog"></div>
+        </div>
+
+        <div class="guild-card">
+          <div class="guild-card-header">
+            <span>Conquistas</span>
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <div class="achievements-list" id="achievementList"></div>
+        </div>
+
+        <div class="guild-card">
+          <div class="guild-card-header">
+            <span>Focus timer</span>
+            <i class="fa-solid fa-hourglass-half"></i>
+          </div>
+          <div class="focus-card">
+            <div class="focus-controls">
+              <button class="focus-pill active" data-mode="25">25 min</button>
+              <button class="focus-pill" data-mode="45">45 min</button>
+              <button class="focus-pill" data-mode="60">60 min</button>
+            </div>
+            <div class="focus-time" id="focusTime">25:00</div>
+            <div class="focus-actions">
+              <button class="focus-action primary" id="focusStartBtn">Iniciar</button>
+              <button class="focus-action" id="focusResetBtn">Resetar</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1214,7 +1424,9 @@
     };
 
     const state = loadState();
-    let audioCtx = null;
+    let focusInterval = null;
+    let focusRemaining = 25 * 60;
+    let focusMode = 25;
 
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
@@ -1247,6 +1459,51 @@
           initTheme();
           saveState();
         });
+      });
+
+      document.querySelectorAll('.focus-pill').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.focus-pill').forEach(btn => btn.classList.toggle('active', btn === button));
+          focusMode = Number(button.dataset.mode || 25);
+          focusRemaining = focusMode * 60;
+          renderFocusTimer();
+          if (focusInterval) {
+            clearInterval(focusInterval);
+            focusInterval = null;
+          }
+        });
+      });
+
+      document.getElementById('focusStartBtn').addEventListener('click', () => {
+        if (focusInterval) {
+          clearInterval(focusInterval);
+          focusInterval = null;
+          document.getElementById('focusStartBtn').textContent = 'Iniciar';
+          return;
+        }
+
+        focusInterval = setInterval(() => {
+          if (focusRemaining <= 0) {
+            clearInterval(focusInterval);
+            focusInterval = null;
+            document.getElementById('focusStartBtn').textContent = 'Iniciar';
+            showToast('Expedição concluída! Você domina a sessão.');
+            playSound('complete');
+            return;
+          }
+          focusRemaining -= 1;
+          renderFocusTimer();
+        }, 1000);
+
+        document.getElementById('focusStartBtn').textContent = 'Pausar';
+      });
+
+      document.getElementById('focusResetBtn').addEventListener('click', () => {
+        if (focusInterval) clearInterval(focusInterval);
+        focusInterval = null;
+        focusRemaining = focusMode * 60;
+        renderFocusTimer();
+        document.getElementById('focusStartBtn').textContent = 'Iniciar';
       });
 
       document.getElementById('createBtn').addEventListener('click', createTask);
@@ -1329,7 +1586,10 @@
       renderProfile();
       renderStats();
       renderCalendar();
+      renderQuestLog();
+      renderAchievements();
       renderTasks();
+      renderFocusTimer();
       updateProgress();
     }
 
@@ -1369,6 +1629,49 @@
       document.getElementById('profileRole').textContent = state.profileRole;
     }
 
+    function renderQuestLog() {
+      const log = document.getElementById('questLog');
+      const activeTasks = state.tasks.filter(task => !task.done).slice(0, 3);
+
+      if (!activeTasks.length) {
+        log.innerHTML = `
+          <div class="quest-log-item">
+            <strong>Sem missões</strong>
+            <span class="status">Dormindo</span>
+          </div>
+        `;
+        return;
+      }
+
+      log.innerHTML = activeTasks.map(task => `
+        <div class="quest-log-item">
+          <strong>${escapeHtml(task.title)}</strong>
+          <span class="status">${task.priority || 'media'}</span>
+        </div>
+      `).join('');
+    }
+
+    function renderAchievements() {
+      const list = document.getElementById('achievementList');
+      const doneCount = state.tasks.filter(task => task.done).length;
+      const streak = getStreak();
+      const achievements = [
+        { icon: 'fa-solid fa-bolt', title: 'Primeiro passo', desc: doneCount >= 1 ? 'Desbloqueado' : 'Complete sua primeira missão', unlocked: doneCount >= 1 },
+        { icon: 'fa-solid fa-fire', title: 'Foco total', desc: streak >= 3 ? 'Streak de 3 dias' : 'Crie uma sequência', unlocked: streak >= 3 },
+        { icon: 'fa-solid fa-crown', title: 'Guild Master', desc: doneCount >= 5 ? 'Guild reconhecida' : 'Atinge 5 missões', unlocked: doneCount >= 5 }
+      ];
+
+      list.innerHTML = achievements.map(item => `
+        <div class="achievement-item">
+          <div class="achievement-icon"><i class="${item.icon}"></i></div>
+          <div class="achievement-copy">
+            <strong>${item.title}</strong>
+            <span>${item.desc}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function renderTasks() {
       const filtered = state.tasks.filter(task => {
         if (state.filter === 'active') return !task.done;
@@ -1403,6 +1706,14 @@
           <button class="task-delete" data-id="${task.id}" aria-label="Deletar tarefa"><i class="fa-solid fa-trash"></i></button>
         </div>
       `).join('');
+    }
+
+    function renderFocusTimer() {
+      const minutes = Math.floor(focusRemaining / 60);
+      const seconds = focusRemaining % 60;
+      const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      document.getElementById('focusTime').textContent = display;
+      document.getElementById('focusStartBtn').textContent = focusInterval ? 'Pausar' : 'Iniciar';
     }
 
     function renderCalendar() {
