@@ -13,22 +13,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
   <style>
     :root {
-      --bg: #0a0c15;
-      --bg-2: #12151f;
-      --line: #1f2333;
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
+      --bg: #0b1020;
+      --bg-2: #12192b;
+      --panel: rgba(16, 21, 35, 0.92);
+      --panel-2: rgba(22, 30, 47, 0.95);
+      --line: rgba(151, 166, 203, 0.18);
+      --text: #eef2ff;
+      --text-strong: #ffffff;
+      --text-muted: #a8b4d1;
       --accent: #a78bfa;
       --accent-2: #5ee7ff;
-      --accent-glow: rgba(167, 139, 250, 0.35);
+      --accent-3: #8ef0c4;
+      --accent-glow: rgba(167, 139, 250, 0.34);
+      --danger: #ff6b81;
+      --success: #7cf7bf;
+      --warning: #f7c96d;
       --shadow-sm: rgba(0, 0, 0, 0.2);
-      --shadow-lg: rgba(0, 0, 0, 0.38);
+      --shadow-lg: rgba(0, 0, 0, 0.42);
     }
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     html, body {
       margin: 0;
@@ -51,15 +55,15 @@
       content: "";
       position: fixed;
       inset: -30% -10% auto auto;
-      width: 65%;
-      height: 65%;
+      width: 70%;
+      height: 70%;
       background: radial-gradient(circle, var(--accent-glow), transparent 60%);
       pointer-events: none;
       z-index: 0;
-      filter: blur(28px);
+      filter: blur(30px);
     }
 
-    button, input, select, textarea {
+    a, button, input, select, textarea {
       font: inherit;
       border: none;
       outline: none;
@@ -191,13 +195,14 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       position: relative;
       z-index: 1;
     }
 
     .player-info {
       flex: 1;
+      min-width: 0;
     }
 
     .player-label {
@@ -207,6 +212,16 @@
       text-transform: uppercase;
       color: rgba(167,139,250,0.8);
       margin-bottom: 4px;
+    }
+
+    .player-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .player-level {
@@ -270,7 +285,7 @@
 
     .progress-fill {
       height: 100%;
-      width: 33%;
+      width: 0;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       border-radius: inherit;
       box-shadow: 0 0 12px var(--accent-glow);
@@ -331,7 +346,7 @@
       padding: 18px;
       margin-bottom: 18px;
       box-shadow: 0 12px 30px var(--shadow-lg), inset 0 0 0 1px rgba(255,255,255,0.02);
-      min-height: 248px;
+      min-height: 245px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -343,7 +358,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(0,0,0,0));
+      background: linear-gradient(180deg, rgba(5, 7, 16, 0.15), rgba(5, 7, 16, 0.68));
+      backdrop-filter: blur(3px);
       z-index: 0;
     }
 
@@ -353,39 +369,43 @@
       position: absolute;
       inset: 0;
       object-fit: cover;
-      opacity: 0.95;
-      filter: saturate(1.05) contrast(1.05);
-      transform: scale(1.05);
+      opacity: 0.86;
+      filter: blur(2px) saturate(1.15) contrast(1.1);
+      transform: scale(1.08);
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
       text-align: center;
-      max-width: 280px;
+      max-width: 300px;
       padding-top: 14px;
+      text-shadow: 0 3px 18px rgba(0,0,0,0.45);
     }
 
     .hero-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       line-height: 1.08;
       font-weight: 800;
       margin: 0 0 10px;
       letter-spacing: -0.04em;
+      color: var(--text-strong);
     }
 
-    .hero-title span { color: var(--accent); }
+    .hero-title span { color: var(--accent-2); }
 
     .hero-desc {
       font-size: 12px;
       line-height: 1.5;
-      color: rgba(243,244,246,0.8);
+      color: rgba(255,255,255,0.9);
       margin: 0;
+      font-weight: 600;
     }
 
+    .calendar-panel,
     .tasks-section {
-      margin-bottom: 10px;
+      margin-bottom: 18px;
     }
 
     .section-header {
@@ -402,6 +422,92 @@
       font-size: 1.1rem;
       font-weight: 800;
       margin: 0;
+    }
+
+    .calendar-card {
+      background: linear-gradient(135deg, rgba(18,21,31,0.7), rgba(15,17,26,0.8));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .calendar-weekdays {
+      margin-bottom: 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .calendar-day {
+      position: relative;
+      min-height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(167,139,250,0.08);
+      background: rgba(255,255,255,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      overflow: hidden;
+    }
+
+    .calendar-day.muted {
+      opacity: 0.4;
+    }
+
+    .calendar-day.today {
+      background: rgba(167,139,250,0.12);
+      border-color: rgba(167,139,250,0.30);
+      color: var(--text-strong);
+      box-shadow: 0 0 0 1px rgba(167,139,250,0.10);
+    }
+
+    .calendar-day.has-task {
+      border-color: rgba(94,231,255,0.35);
+    }
+
+    .calendar-day .dot {
+      position: absolute;
+      bottom: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 8px rgba(94,231,255,0.7);
+    }
+
+    .calendar-day .done-badge {
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      font-size: 9px;
+      border-radius: 999px;
+      padding: 2px 4px;
+      background: rgba(124, 247, 191, 0.18);
+      color: var(--success);
+      border: 1px solid rgba(124,247,191,0.3);
     }
 
     .filter-buttons {
@@ -458,7 +564,7 @@
     }
 
     .task-item.completed {
-      opacity: 0.7;
+      opacity: 0.72;
     }
 
     .task-checkbox {
@@ -530,6 +636,15 @@
       background: rgba(255,255,255,0.04);
       padding: 4px 8px;
       border-radius: 6px;
+    }
+
+    .task-date {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px 8px;
     }
 
     .task-delete {
@@ -608,6 +723,32 @@
       font-size: 10px;
       font-weight: 600;
       text-transform: capitalize;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 90px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(16, 21, 35, 0.96);
+      border: 1px solid rgba(167,139,250,0.26);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 60;
+      max-width: 82vw;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .modal {
@@ -819,11 +960,7 @@
     }
 
     @media (min-width: 640px) {
-      .container {
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
+      .container { max-width: 600px; margin: 0 auto; }
       .hero-content {
         position: absolute;
         left: 18px;
@@ -851,6 +988,7 @@
         <div class="player-header">
           <div class="player-info">
             <div class="player-label">Player Progress</div>
+            <div class="player-name" id="playerNameDisplay">Astra</div>
             <h1 class="player-level" id="playerLvl">LVL 1</h1>
           </div>
           <div class="avatar-frame">
@@ -861,7 +999,7 @@
         <div class="progress-section">
           <div class="progress-text">
             <span id="xpCurrent">0 XP</span>
-            <span id="xpNext">MAX: 100 XP</span>
+            <span id="xpNext">NEXT: 100 XP</span>
           </div>
           <div class="progress-bar">
             <div class="progress-fill" id="xpBar"></div>
@@ -893,6 +1031,28 @@
         </div>
       </div>
 
+      <div class="calendar-panel">
+        <div class="section-header">
+          <h2 class="section-title">Calendário</h2>
+        </div>
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <span id="calendarMonthLabel">Mês atual</span>
+            <span id="calendarSummary">0 tarefas</span>
+          </div>
+          <div class="calendar-weekdays">
+            <div>Dom</div>
+            <div>Seg</div>
+            <div>Ter</div>
+            <div>Qua</div>
+            <div>Qui</div>
+            <div>Sex</div>
+            <div>Sáb</div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+      </div>
+
       <div class="tasks-section">
         <div class="section-header">
           <h2 class="section-title">Suas Missões</h2>
@@ -903,12 +1063,7 @@
           </div>
         </div>
 
-        <div class="tasks-container" id="tasksContainer">
-          <div class="empty-state">
-            <i class="fa-solid fa-ghost"></i>
-            Nenhuma missão ainda. Crie uma para começar!
-          </div>
-        </div>
+        <div class="tasks-container" id="tasksContainer"></div>
       </div>
     </div>
   </div>
@@ -927,6 +1082,8 @@
       <span class="nav-label">Perfil</span>
     </button>
   </nav>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
 
   <div class="modal" id="addQuestModal">
     <div class="modal-box">
@@ -998,83 +1155,373 @@
         <h2>Seu Perfil</h2>
         <button class="modal-close" data-modal="profileModal" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="modal-body profile-content">
-        <img src="193270.jpg" alt="Perfil" class="profile-avatar" />
-        <h3 class="profile-name">Neko Master</h3>
-        <div class="profile-role">Nível <span id="profLevel">1</span></div>
+      <div class="modal-body">
+        <div class="profile-content">
+          <img class="profile-avatar" src="193269.jpg" alt="Avatar do jogador" />
+          <h3 class="profile-name" id="profileNameModal">Astra</h3>
+          <div class="profile-role" id="profileRole">Guild Master</div>
 
-        <div class="profile-stats">
-          <div class="profile-stat">
-            <div class="profile-stat-icon"><i class="fa-solid fa-bolt"></i></div>
-            <div class="profile-stat-value" id="profXp">0</div>
-            <div class="profile-stat-label">XP</div>
+          <div class="form-group">
+            <label class="form-label">Nome do aventureiro</label>
+            <input id="profileNameInput" type="text" maxlength="20" placeholder="Digite seu nome" />
           </div>
-          <div class="profile-stat">
-            <div class="profile-stat-icon"><i class="fa-solid fa-check"></i></div>
-            <div class="profile-stat-value" id="profDone">0</div>
-            <div class="profile-stat-label">Feitas</div>
+
+          <div class="form-group">
+            <label class="form-label">Título</label>
+            <select id="profileTitleSelect">
+              <option value="Iniciante">Iniciante</option>
+              <option value="Aventureiro">Aventureiro</option>
+              <option value="Guild Master">Guild Master</option>
+              <option value="Lendário">Lendário</option>
+              <option value="Ninja do Foco">Ninja do Foco</option>
+            </select>
           </div>
-          <div class="profile-stat">
-            <div class="profile-stat-icon"><i class="fa-solid fa-medal"></i></div>
-            <div class="profile-stat-value" id="profTitle">Iniciante</div>
-            <div class="profile-stat-label">Título</div>
+
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <div class="profile-stat-icon"><i class="fa-solid fa-trophy"></i></div>
+              <div class="profile-stat-value" id="profileStatTotal">0</div>
+              <div class="profile-stat-label">missões</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-icon"><i class="fa-solid fa-flame"></i></div>
+              <div class="profile-stat-value" id="profileStatStreak">0</div>
+              <div class="profile-stat-label">streak</div>
+            </div>
           </div>
-          <div class="profile-stat">
-            <div class="profile-stat-icon"><i class="fa-solid fa-list"></i></div>
-            <div class="profile-stat-value" id="profTotal">0</div>
-            <div class="profile-stat-label">Total</div>
-          </div>
+
+          <button class="form-submit" id="saveProfileBtn" type="button">Salvar perfil</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'neko_tasks_v1';
-    const THEME_KEY = 'neko_theme_v1';
+    const STORAGE_KEY = 'nekoquest-planner-v2';
+    const DEFAULT_STATE = {
+      profileName: 'Astra',
+      profileRole: 'Guild Master',
+      themeColor: '#a78bfa',
+      selectedDifficulty: 100,
+      filter: 'all',
+      tasks: [
+        { id: '1', title: 'Estudar JavaScript', xp: 100, priority: 'media', date: getToday(), done: false },
+        { id: '2', title: 'Treinar foco por 30 min', xp: 50, priority: 'baixa', date: getToday(), done: false },
+        { id: '3', title: 'Organizar tarefas do dia', xp: 100, priority: 'media', date: getDateOffset(-1), done: true },
+        { id: '4', title: 'Leitura de 20 páginas', xp: 150, priority: 'alta', date: getDateOffset(-2), done: true },
+        { id: '5', title: 'Revisar rotina matinal', xp: 75, priority: 'baixa', date: getDateOffset(-4), done: true }
+      ]
+    };
 
-    let tasks = [];
-    let currentFilter = 'all';
-    let selectedXP = 100;
+    const state = loadState();
+    let audioCtx = null;
 
-    function loadTasks() {
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      bindEvents();
+      renderAll();
+      requestNotificationPermission();
+      setInterval(checkDailyReminders, 60000);
+    });
+
+    function bindEvents() {
+      document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          state.filter = button.dataset.filter;
+          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn === button));
+          renderTasks();
+        });
+      });
+
+      document.querySelectorAll('.diff-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.toggle('active', btn === button));
+          state.selectedDifficulty = Number(button.dataset.xp || 100);
+        });
+      });
+
+      document.querySelectorAll('.color-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.color-btn').forEach(btn => btn.classList.toggle('active', btn === button));
+          state.themeColor = button.dataset.color || '#a78bfa';
+          initTheme();
+          saveState();
+        });
+      });
+
+      document.getElementById('createBtn').addEventListener('click', createTask);
+      document.getElementById('saveProfileBtn').addEventListener('click', saveProfileData);
+      document.getElementById('profileTopBtn').addEventListener('click', () => openModal('profileModal'));
+      document.getElementById('themeTopBtn').addEventListener('click', () => openModal('themeModal'));
+      document.getElementById('profileBtn').addEventListener('click', () => openModal('profileModal'));
+      document.getElementById('addBtn').addEventListener('click', () => openModal('addQuestModal'));
+      document.getElementById('homeBtn').addEventListener('click', () => closeModal('addQuestModal'));
+
+      document.querySelectorAll('.modal-close').forEach(button => {
+        button.addEventListener('click', () => closeModal(button.dataset.modal));
+      });
+
+      document.getElementById('profileNameInput').addEventListener('input', (event) => {
+        const value = event.target.value.trim();
+        document.getElementById('profileNameModal').textContent = value || 'Aventureiro';
+      });
+
+      document.getElementById('profileTitleSelect').addEventListener('change', (event) => {
+        state.profileRole = event.target.value || 'Guild Master';
+        document.getElementById('profileRole').textContent = state.profileRole;
+      });
+
+      document.getElementById('tasksContainer').addEventListener('click', (event) => {
+        const target = event.target.closest('.task-checkbox');
+        if (target) {
+          const taskId = target.dataset.id;
+          toggleTask(taskId);
+          return;
+        }
+
+        const deleteBtn = event.target.closest('.task-delete');
+        if (deleteBtn) {
+          removeTask(deleteBtn.dataset.id);
+        }
+      });
+
+      window.addEventListener('click', (event) => {
+        document.querySelectorAll('.modal').forEach(modal => {
+          if (event.target === modal) closeModal(modal.id);
+        });
+      });
+    }
+
+    function loadState() {
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        return saved ? JSON.parse(saved) : [];
-      } catch {
-        return [];
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && Array.isArray(saved.tasks)) {
+          return { ...DEFAULT_STATE, ...saved };
+        }
+      } catch (error) {
+        console.warn('Erro ao carregar estado:', error);
       }
+      return { ...DEFAULT_STATE };
     }
 
-    function saveTasks() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        profileName: state.profileName,
+        profileRole: state.profileRole,
+        themeColor: state.themeColor,
+        selectedDifficulty: state.selectedDifficulty,
+        filter: state.filter,
+        tasks: state.tasks
+      }));
     }
 
-    function getTheme() {
-      return localStorage.getItem(THEME_KEY) || '#a78bfa';
+    function initTheme() {
+      const root = document.documentElement;
+      root.style.setProperty('--accent', state.themeColor);
+      root.style.setProperty('--accent-2', mixHex(state.themeColor, '#5ee7ff', 0.55));
+      root.style.setProperty('--accent-glow', hexToRgba(state.themeColor, 0.34));
+      document.querySelectorAll('.color-btn').forEach(button => {
+        button.classList.toggle('active', button.dataset.color === state.themeColor);
+      });
     }
 
-    function setTheme(color) {
-      document.documentElement.style.setProperty('--accent', color);
-      document.documentElement.style.setProperty('--accent-2', mixWithWhite(color, 0.35));
-      document.documentElement.style.setProperty('--accent-glow', `rgba(${hexToRgb(color).join(',')}, 0.35)`);
-      localStorage.setItem(THEME_KEY, color);
+    function renderAll() {
+      renderProfile();
+      renderStats();
+      renderCalendar();
+      renderTasks();
+      updateProgress();
     }
 
-    function mixWithWhite(hex, amount) {
-      const rgb = hexToRgb(hex);
-      const mixed = rgb.map(channel => Math.round(channel + (255 - channel) * amount));
-      return `rgb(${mixed.join(', ')})`;
+    function renderProfile() {
+      const name = state.profileName || 'Astra';
+      document.getElementById('playerNameDisplay').textContent = name;
+      document.getElementById('profileNameModal').textContent = name;
+      document.getElementById('profileNameInput').value = name;
+      document.getElementById('profileRole').textContent = state.profileRole || 'Guild Master';
+      document.getElementById('profileTitleSelect').value = state.profileRole || 'Guild Master';
     }
 
-    function hexToRgb(hex) {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [167, 139, 250];
+    function renderStats() {
+      const total = state.tasks.length;
+      const done = state.tasks.filter(task => task.done).length;
+      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0);
+      const nextLevelXP = 100;
+
+      document.getElementById('statTotal').textContent = String(total);
+      document.getElementById('statDone').textContent = String(done);
+      document.getElementById('statXp').textContent = String(xp);
+      document.getElementById('profileStatTotal').textContent = String(total);
+      document.getElementById('profileStatStreak').textContent = String(getStreak());
+
+      const level = Math.max(1, Math.floor(xp / 100) + 1);
+      const currentXP = xp % 100;
+      const progress = Math.min(100, (currentXP / nextLevelXP) * 100);
+
+      document.getElementById('playerLvl').textContent = 'LVL ' + level;
+      document.getElementById('xpCurrent').textContent = currentXP + ' XP';
+      document.getElementById('xpNext').textContent = 'NEXT: ' + (nextLevelXP - currentXP) + ' XP';
+      document.getElementById('xpBar').style.width = progress + '%';
+
+      const title = chooseTitle(level);
+      document.getElementById('playerTitle').textContent = title;
+      state.profileRole = state.profileRole || title;
+      document.getElementById('profileRole').textContent = state.profileRole;
+    }
+
+    function renderTasks() {
+      const filtered = state.tasks.filter(task => {
+        if (state.filter === 'active') return !task.done;
+        if (state.filter === 'done') return task.done;
+        return true;
+      });
+
+      const container = document.getElementById('tasksContainer');
+      if (!filtered.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-ghost"></i>
+            Nenhuma missão ainda. Crie uma para começar!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(task => `
+        <div class="task-item ${task.done ? 'completed' : ''}" data-id="${task.id}">
+          <button class="task-checkbox" data-id="${task.id}" aria-label="Concluir tarefa">
+            ${task.done ? '<i class="fa-solid fa-check"></i>' : ''}
+          </button>
+          <div class="task-content">
+            <p class="task-title">${escapeHtml(task.title)}</p>
+            <div class="task-meta">
+              <span class="task-xp"><i class="fa-solid fa-star"></i> ${task.xp} XP</span>
+              <span class="task-diff">${task.priority || 'media'}</span>
+              <span class="task-date">${task.date ? formatDate(task.date) : 'Sem data'}</span>
+            </div>
+          </div>
+          <button class="task-delete" data-id="${task.id}" aria-label="Deletar tarefa"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      `).join('');
+    }
+
+    function renderCalendar() {
+      const now = new Date();
+      const monthLabel = document.getElementById('calendarMonthLabel');
+      const grid = document.getElementById('calendarGrid');
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      const startDay = monthStart.getDay();
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      const monthName = monthStart.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+      const monthDays = [];
+
+      monthLabel.textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+
+      for (let i = 0; i < startDay; i++) {
+        monthDays.push({ empty: true, date: null, done: 0, total: 0 });
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = toISODate(new Date(now.getFullYear(), now.getMonth(), day));
+        const done = state.tasks.filter(task => task.done && task.date === dateKey).length;
+        const total = state.tasks.filter(task => task.date === dateKey).length;
+        monthDays.push({ empty: false, date: day, key: dateKey, done, total });
+      }
+
+      while (monthDays.length % 7 !== 0) {
+        monthDays.push({ empty: true, date: null, done: 0, total: 0 });
+      }
+
+      const todayKey = toISODate(new Date());
+      const totalTasksThisMonth = monthDays.filter(day => !day.empty && day.total > 0).reduce((sum, day) => sum + day.total, 0);
+      document.getElementById('calendarSummary').textContent = totalTasksThisMonth + ' tarefas';
+
+      grid.innerHTML = monthDays.map(day => {
+        if (day.empty) {
+          return '<div class="calendar-day muted"></div>';
+        }
+
+        const isToday = day.key === todayKey;
+        const hasTask = day.total > 0;
+        return `
+          <div class="calendar-day ${isToday ? 'today' : ''} ${hasTask ? 'has-task' : ''}">
+            <span>${day.date}</span>
+            ${day.done > 0 ? `<span class="done-badge">${day.done}</span>` : ''}
+            ${hasTask ? '<span class="dot"></span>' : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function createTask() {
+      const titleInput = document.getElementById('questTitle');
+      const title = titleInput.value.trim();
+      const date = document.getElementById('questDate').value || getToday();
+      const priority = document.getElementById('questPriority').value || 'media';
+      const xp = state.selectedDifficulty || 100;
+
+      if (!title) {
+        showToast('Nome da missão não pode ficar vazio.');
+        return;
+      }
+
+      const task = {
+        id: String(Date.now()),
+        title,
+        xp,
+        priority,
+        date,
+        done: false
+      };
+
+      state.tasks.unshift(task);
+      titleInput.value = '';
+      document.getElementById('questDate').value = '';
+      document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.toggle('active', Number(btn.dataset.xp) === state.selectedDifficulty));
+      saveState();
+      renderAll();
+      closeModal('addQuestModal');
+      showToast('Nova missão criada!');
+      playSound('create');
+    }
+
+    function toggleTask(taskId) {
+      const task = state.tasks.find(item => item.id === taskId);
+      if (!task) return;
+
+      task.done = !task.done;
+      task.completedAt = task.done ? new Date().toISOString() : null;
+
+      if (task.done) {
+        showToast(randomRpgPhrase());
+        playSound('complete');
+      }
+
+      saveState();
+      renderAll();
+    }
+
+    function removeTask(taskId) {
+      state.tasks = state.tasks.filter(task => task.id !== taskId);
+      saveState();
+      renderAll();
+    }
+
+    function saveProfileData() {
+      const input = document.getElementById('profileNameInput');
+      const rawName = input.value.trim();
+      state.profileName = rawName || 'Astra';
+      state.profileRole = document.getElementById('profileTitleSelect').value || 'Guild Master';
+      saveState();
+      renderProfile();
+      renderStats();
+      closeModal('profileModal');
+      showToast('Perfil atualizado!');
+      playSound('create');
     }
 
     function openModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.add('active');
+      document.getElementById(id).classList.add('active');
     }
 
     function closeModal(id) {
@@ -1082,147 +1529,175 @@
       if (modal) modal.classList.remove('active');
     }
 
-    function renderTasks() {
-      const container = document.getElementById('tasksContainer');
-      const filtered = tasks.filter(task => {
-        if (currentFilter === 'all') return true;
-        if (currentFilter === 'active') return !task.done;
-        return task.done;
-      });
+    function checkDailyReminders() {
+      const todayKey = getToday();
+      const pending = state.tasks.filter(task => !task.done && task.date === todayKey);
 
-      if (!filtered.length) {
-        container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-ghost"></i>Nenhuma missão aqui.</div>';
-        return;
+      if (!pending.length) return;
+
+      const reminderKey = 'daily-reminder-' + todayKey;
+      const lastReminder = sessionStorage.getItem(reminderKey);
+      if (lastReminder) return;
+
+      const message = pending.length > 1
+        ? `Você tem ${pending.length} missões pendentes hoje!`
+        : `A missão de hoje ainda está pendente!`;
+
+      showToast(message);
+      playSound('reminder');
+      sessionStorage.setItem(reminderKey, '1');
+
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('NEKOQUEST', { body: message });
       }
-
-      container.innerHTML = filtered.map(task => `
-        <div class="task-item ${task.done ? 'completed' : ''}">
-          <button class="task-checkbox" type="button" aria-label="Marcar tarefa" onclick="toggleTask('${task.id}')">${task.done ? '✓' : ''}</button>
-          <div class="task-content">
-            <div class="task-title">${task.title}</div>
-            <div class="task-meta">
-              <span class="task-xp"><i class="fa-solid fa-star"></i> ${task.xp}</span>
-              <span class="task-diff">${task.diff}</span>
-            </div>
-          </div>
-          <button class="task-delete" type="button" aria-label="Excluir tarefa" onclick="deleteTask('${task.id}')"><i class="fa-solid fa-trash"></i></button>
-        </div>
-      `).join('');
     }
 
-    function addTask() {
-      const title = document.getElementById('questTitle').value.trim();
-      if (!title) {
-        alert('Digite o nome da missão');
-        return;
+    function requestNotificationPermission() {
+      if (!('Notification' in window)) return;
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
       }
-
-      tasks.unshift({
-        id: String(Date.now()),
-        title,
-        xp: selectedXP,
-        diff: selectedXP === 50 ? 'Fácil' : selectedXP === 250 ? 'Difícil' : 'Média',
-        priority: document.getElementById('questPriority').value,
-        date: document.getElementById('questDate').value,
-        done: false
-      });
-
-      saveTasks();
-      renderTasks();
-      updateStats();
-      closeModal('addQuestModal');
-      document.getElementById('questTitle').value = '';
-      document.getElementById('questDate').value = '';
     }
 
-    function toggleTask(id) {
-      tasks = tasks.map(task => task.id === id ? { ...task, done: !task.done } : task);
-      saveTasks();
-      renderTasks();
-      updateStats();
-    }
+    function playSound(type) {
+      const soundMap = {
+        complete: [440, 550, 660],
+        reminder: [220, 180, 150],
+        create: [420, 510, 620]
+      };
 
-    function deleteTask(id) {
-      tasks = tasks.filter(task => task.id !== id);
-      saveTasks();
-      renderTasks();
-      updateStats();
-    }
-
-    function updateStats() {
-      const total = tasks.length;
-      const done = tasks.filter(task => task.done).length;
-      const xp = tasks.reduce((sum, task) => sum + (task.done ? task.xp : 0), 0);
-      const level = Math.max(1, Math.floor(xp / 100) + 1);
-      const title = level >= 10 ? 'Lendário' : level >= 6 ? 'Elite' : level >= 3 ? 'Aventureiro' : 'Iniciante';
-      const progress = xp % 100;
-
-      document.getElementById('statTotal').textContent = total;
-      document.getElementById('statDone').textContent = done;
-      document.getElementById('statXp').textContent = xp;
-      document.getElementById('playerLvl').textContent = `LVL ${level}`;
-      document.getElementById('playerTitle').textContent = title;
-      document.getElementById('xpCurrent').textContent = `${progress} XP`;
-      document.getElementById('xpNext').textContent = `MAX: 100 XP`;
-      document.getElementById('xpBar').style.width = `${Math.min(progress, 100)}%`;
-
-      document.getElementById('profLevel').textContent = level;
-      document.getElementById('profXp').textContent = xp;
-      document.getElementById('profDone').textContent = done;
-      document.getElementById('profTotal').textContent = total;
-      document.getElementById('profTitle').textContent = title;
-    }
-
-    document.getElementById('addBtn').addEventListener('click', () => openModal('addQuestModal'));
-    document.getElementById('profileBtn').addEventListener('click', () => openModal('profileModal'));
-    document.getElementById('profileTopBtn').addEventListener('click', () => openModal('profileModal'));
-    document.getElementById('themeTopBtn').addEventListener('click', () => openModal('themeModal'));
-    document.getElementById('createBtn').addEventListener('click', addTask);
-
-    document.querySelectorAll('[data-modal]').forEach(button => {
-      button.addEventListener('click', () => closeModal(button.dataset.modal));
-    });
-
-    document.querySelectorAll('.diff-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.diff-btn').forEach(item => item.classList.remove('active'));
-        button.classList.add('active');
-        selectedXP = Number(button.dataset.xp || 100);
-      });
-    });
-
-    document.querySelectorAll('.color-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.color-btn').forEach(item => item.classList.remove('active'));
-        button.classList.add('active');
-        setTheme(button.dataset.color);
-      });
-    });
-
-    document.querySelectorAll('.filter-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(item => item.classList.remove('active'));
-        button.classList.add('active');
-        currentFilter = button.dataset.filter;
-        renderTasks();
-      });
-    });
-
-    document.addEventListener('click', event => {
-      if (event.target.classList.contains('modal')) {
-        event.target.classList.remove('active');
+      try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = soundMap[type] || soundMap.complete;
+        notes.forEach((freq, index) => {
+          const oscillator = context.createOscillator();
+          const gain = context.createGain();
+          oscillator.type = index % 2 === 0 ? 'sine' : 'triangle';
+          oscillator.frequency.value = freq;
+          gain.gain.value = 0.0001;
+          oscillator.connect(gain);
+          gain.connect(context.destination);
+          oscillator.start(context.currentTime + index * 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + index * 0.06 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + index * 0.06 + 0.13);
+          oscillator.stop(context.currentTime + index * 0.06 + 0.18);
+        });
+      } catch (error) {
+        console.warn('Áudio indisponível no navegador:', error);
       }
-    });
+    }
 
-    document.getElementById('homeBtn').addEventListener('click', () => {
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('homeBtn').classList.add('active');
-    });
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timeoutId);
+      showToast.timeoutId = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
 
-    tasks = loadTasks();
-    setTheme(getTheme());
-    renderTasks();
-    updateStats();
+    function randomRpgPhrase() {
+      const phrases = [
+        'Missão concluída! +25 de coragem.',
+        'Você derrotou a procrastinação! +50 XP.',
+        'Uma vitória épica para a guilda!',
+        'O herói deste dia avança mais um nível.',
+        'A jornada continua... e você está mais forte.',
+        'Nível conquistado: foco, disciplina e determinação.'
+      ];
+      return phrases[Math.floor(Math.random() * phrases.length)];
+    }
+
+    function getStreak() {
+      const completedDates = new Set(state.tasks.filter(task => task.done && task.date).map(task => task.date));
+      let streak = 0;
+      const cursor = new Date();
+      while (true) {
+        const dayKey = toISODate(cursor);
+        if (completedDates.has(dayKey)) {
+          streak += 1;
+          cursor.setDate(cursor.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+      return streak;
+    }
+
+    function chooseTitle(level) {
+      if (level >= 10) return 'Lendário';
+      if (level >= 7) return 'Guild Master';
+      if (level >= 5) return 'Aventureiro';
+      if (level >= 3) return 'Ninja do Foco';
+      return 'Iniciante';
+    }
+
+    function updateProgress() {
+      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0);
+      const current = xp % 100;
+      const percent = Math.min(100, (current / 100) * 100);
+      document.getElementById('xpCurrent').textContent = current + ' XP';
+      document.getElementById('xpBar').style.width = percent + '%';
+    }
+
+    function getToday() {
+      return toISODate(new Date());
+    }
+
+    function getDateOffset(offset) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      return toISODate(date);
+    }
+
+    function toISODate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return 'Sem data';
+      const date = new Date(dateStr + 'T00:00:00');
+      return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function mixHex(hex1, hex2, weight) {
+      const color1 = hexToRgb(hex1);
+      const color2 = hexToRgb(hex2);
+      const w = weight || 0.5;
+      const r = Math.round(color1.r * (1 - w) + color2.r * w);
+      const g = Math.round(color1.g * (1 - w) + color2.g * w);
+      const b = Math.round(color1.b * (1 - w) + color2.b * w);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function hexToRgb(hex) {
+      const clean = hex.replace('#', '');
+      const value = clean.length === 3
+        ? clean.split('').map(ch => ch + ch).join('')
+        : clean;
+      const num = parseInt(value, 16);
+      return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+      };
+    }
+
+    function hexToRgba(hex, alpha) {
+      const { r, g, b } = hexToRgb(hex);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
   </script>
 </body>
 </html>
