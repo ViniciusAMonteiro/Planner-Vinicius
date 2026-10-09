@@ -52,15 +52,15 @@ button { cursor: pointer; border: none; background: transparent; }
 
 /* HERO SECTION - Corrigida para Mobile */
 .hero { display: flex; gap: 20px; margin: 30px 0; align-items: stretch; }
-.hero-card { flex: 1; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg, #121620, #0a0c12); padding: 30px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
-.hero-card h1 { font: 700 clamp(28px, 4vw, 42px) 'Space Grotesk'; margin: 10px 0; line-height: 1.1; }
+.hero-card { flex: 1; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg, #121620, #0a0c12); padding: 30px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; min-height: 280px; }
+.hero-card h1 { font: 700 clamp(28px, 4vw, 42px) 'Space Grotesk'; margin: 10px 0; line-height: 1.1; position: relative; z-index: 2; }
 .hero-card h1 span { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); transition: 0.3s; }
-.hero-card p { color: var(--muted); max-width: 500px; line-height: 1.5; margin: 0 0 20px 0; font-size: 14px; }
+.hero-card p { color: var(--muted); max-width: 500px; line-height: 1.5; margin: 0 0 20px 0; font-size: 14px; position: relative; z-index: 2; }
 
-/* GATO PIXEL ART CSS (Fallback Visual Garantido) */
-.pixel-cat-large { position: absolute; right: 20px; bottom: -20px; font-size: 160px; filter: drop-shadow(0 0 20px var(--accent-glow)); opacity: 0.9; pointer-events: none; z-index: 0; line-height: 1; }
+/* IMAGEM DO GATO GAMER - Ajuste para a sua imagem */
+.hero-img { position: absolute; right: -20px; bottom: -20px; width: 320px; height: auto; object-fit: cover; opacity: 0.9; pointer-events: none; z-index: 1; border-radius: 24px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.8)); mask-image: linear-gradient(to right, transparent, black 40%); -webkit-mask-image: linear-gradient(to right, transparent, black 40%); }
 
-.hero-stats { display: flex; gap: 15px; position: relative; z-index: 1; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 15px; position: relative; z-index: 2; flex-wrap: wrap; }
 .stat { background: #0d1017; border: 1px solid var(--line); border-radius: 14px; padding: 12px 20px; min-width: 110px; }
 .stat b { display: block; font: 700 24px 'Space Grotesk'; color: var(--accent); transition: 0.3s; }
 .stat span { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
@@ -69,7 +69,10 @@ button { cursor: pointer; border: none; background: transparent; }
 .side-card { width: 320px; border: 1px solid var(--accent); border-radius: 24px; background: #11141d; padding: 25px; box-shadow: 0 10px 30px var(--accent-glow); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; flex-shrink: 0; }
 .side-head { display: flex; justify-content: space-between; align-items: flex-start; }
 .level-badge { font: 700 32px 'Space Grotesk'; margin: 0; color: #fff; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
-.pixel-avatar { width: 60px; height: 60px; background: #1a1e2b; border: 2px solid var(--accent); border-radius: 16px; display: grid; place-items: center; font-size: 35px; box-shadow: 0 0 15px var(--accent-glow); transition: 0.3s; cursor: pointer; }
+
+/* AVATAR IMAGEM */
+.avatar-img { width: 64px; height: 64px; border: 2px solid var(--accent); border-radius: 16px; object-fit: cover; box-shadow: 0 0 15px var(--accent-glow); transition: 0.3s; cursor: pointer; background: #1a1e2b; }
+
 .progress-container { margin-top: 20px; }
 .xp-text { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
 .progress-bar { height: 10px; background: #1a1e2b; border-radius: 99px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
@@ -136,6 +139,9 @@ button { cursor: pointer; border: none; background: transparent; }
 .p-stat b { display: block; font: 700 20px 'Space Grotesk'; margin: 5px 0; }
 .p-stat span { font-size: 10px; color: var(--muted); text-transform: uppercase; }
 
+/* IMAGEM DO MODAL DE PERFIL */
+.modal-avatar { width: 100px; height: 100px; border-radius: 20px; border: 3px solid var(--accent); object-fit: cover; box-shadow: 0 0 25px var(--accent-glow); margin-bottom: 15px; background: #1a1e2b; }
+
 /* TOAST (Notificações) */
 .toast { position: fixed; bottom: 20px; right: 20px; background: #151924; border: 1px solid var(--accent); border-left: 4px solid var(--accent); padding: 15px 20px; border-radius: 12px; color: #fff; font-weight: 600; font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; display: flex; align-items: center; gap: 10px; }
 .toast.show { transform: translateX(0); }
@@ -143,21 +149,21 @@ button { cursor: pointer; border: none; background: transparent; }
 
 @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
-/* MEDIA QUERIES - Correção principal do Mobile */
+/* MEDIA QUERIES */
 @media(max-width: 900px) {
   .hero { flex-direction: column; }
-  .side-card { width: 100%; order: -1; } /* Coloca o card de progresso no topo no mobile */
-  .pixel-cat-large { font-size: 120px; right: 10px; bottom: -10px; }
+  .side-card { width: 100%; order: -1; } 
+  .hero-img { right: -10px; bottom: 0px; width: 250px; mask-image: linear-gradient(to top, transparent, black 80%); -webkit-mask-image: linear-gradient(to top, transparent, black 80%); } /* Ajuste de máscara para o mobile */
 }
 
 @media(max-width: 600px) {
   .app { padding: 0 15px 30px; }
   .brand-sub { display: none; }
-  .top-actions .action-btn span { display: none; } /* Oculta texto dos botões no mobile */
+  .top-actions .action-btn span { display: none; }
   .top-actions .action-btn { padding: 10px; justify-content: center; width: 42px; height: 42px; }
   .top-actions .action-btn.primary { width: auto; padding: 10px 15px; }
-  .top-actions .action-btn.primary span { display: inline; } /* Mantém texto do botão Nova Quest */
-  .hero-card { padding: 20px; }
+  .top-actions .action-btn.primary span { display: inline; }
+  .hero-card { padding: 20px; min-height: 250px;}
   .hero-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat { padding: 10px; min-width: auto; }
 }
@@ -182,10 +188,12 @@ button { cursor: pointer; border: none; background: transparent; }
     </div>
   </header>
 
-  <!-- HERO SECTION (Vertical no mobile, Lado a lado no Desktop) -->
+  <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-card">
-      <div class="pixel-cat-large">😸</div>
+      <!-- Imagem do Gato Gamer (Usando o arquivo 193268.jpg) -->
+      <img src="193268.jpg" alt="Gato Gamer" class="hero-img" onerror="this.style.display='none'">
+      
       <h1>Suba de nível<br>completando <span>suas metas.</span></h1>
       <p>Crie suas missões diárias, marque como concluídas e ganhe XP. Personalize seu painel e acompanhe sua evolução no perfil.</p>
       
@@ -202,7 +210,8 @@ button { cursor: pointer; border: none; background: transparent; }
           <span style="font-size:10px; color:var(--accent); font-weight:800; letter-spacing:1px; text-transform:uppercase;">Player Progress</span>
           <h2 class="level-badge" id="player-level">LVL 1</h2>
         </div>
-        <div class="pixel-avatar" onclick="openModal('profile-modal')" title="Ver Perfil">🐱</div>
+        <!-- Avatar Principal (Usando o arquivo 193269.jpg - Gato Rosto Neon) -->
+        <img src="193269.jpg" alt="Avatar Neko" class="avatar-img" onclick="openModal('profile-modal')" onerror="this.style.display='none'">
       </div>
       <div class="progress-container">
         <div class="xp-text"><span id="xp-current-text">0 XP</span><span id="xp-next-text">MÁX: 1000 XP</span></div>
@@ -225,7 +234,6 @@ button { cursor: pointer; border: none; background: transparent; }
     </div>
 
     <div class="quest-grid" id="quest-container">
-      <!-- Tarefas serão renderizadas aqui pelo JavaScript -->
       <div class="empty-state" id="empty-state">
         <i class="fa-solid fa-ghost"></i>
         <p>Nenhuma quest ativa.<br>Clique em "Nova Quest" para começar sua jornada!</p>
@@ -272,7 +280,6 @@ button { cursor: pointer; border: none; background: transparent; }
       <div class="form-group">
         <label>Cor de Destaque Neon</label>
         <div class="color-grid">
-          <!-- O JS vai aplicar os eventos para trocar a variável do CSS -->
           <div class="color-option active" style="background: #9b7cff; color: #9b7cff;" onclick="changeTheme('#9b7cff', this)"><i class="fa-solid fa-check"></i></div>
           <div class="color-option" style="background: #5ee7ff; color: #5ee7ff;" onclick="changeTheme('#5ee7ff', this)"><i class="fa-solid fa-check"></i></div>
           <div class="color-option" style="background: #58d68d; color: #58d68d;" onclick="changeTheme('#58d68d', this)"><i class="fa-solid fa-check"></i></div>
@@ -296,22 +303,6 @@ button { cursor: pointer; border: none; background: transparent; }
       <button class="close-btn" onclick="closeModal('profile-modal')"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body" style="text-align: center;">
-      <div style="font-size: 70px; filter: drop-shadow(0 0 20px var(--accent-glow)); margin-bottom: 10px;">🐱</div>
-      <h3 style="margin: 0; font: 700 24px 'Space Grotesk';">Jogador</h3>
-      <div class="title-tag" id="profile-title" style="margin-top: 5px;">Iniciante</div>
-      
-      <div class="profile-stats">
-        <div class="p-stat">
-          <i class="fa-solid fa-bolt"></i>
-          <b id="prof-level">1</b>
-          <span>Nível Atual</span>
-        </div>
-        <div class="p-stat">
-          <i class="fa-solid fa-star"></i>
-          <b id="prof-xp">0</b>
-          <span>Total de XP</span>
-        </div>
-        <div class="p-stat">
-          <i class="fa-solid fa-check-double"></i>
-          <b id="prof-done">0</b>
-          <span>
+      <!-- Avatar de Perfil Completo (Usando o arquivo 193270.jpg) -->
+      <img src="193270.jpg" alt="Avatar Gato Neon" class="modal-avatar" onerror="this.style.display='none'">
+      <h3 style="margin: 0; font: 7
