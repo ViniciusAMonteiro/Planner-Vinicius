@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#0b0d14" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Planner gamificado para produtividade, foco e rotina." />
+    <link rel="manifest" href="manifest.json" />
     <title>NEKOQUEST — Organize. Complete. Level Up.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,223 +30,132 @@
         --danger: #ff6b81;
         --success: #7cf7bf;
         --warning: #f7c96d;
-        --shadow-sm: rgba(0, 0, 0, 0.2);
-        --shadow-lg: rgba(0, 0, 0, 0.42);
-        --overlay: rgba(5, 7, 15, 0.7);
+        --shadow-sm: rgba(0,0,0,0.2);
+        --shadow-lg: rgba(0,0,0,0.42);
       }
 
       :root[data-theme="light"] {
         --bg: #f3f7ff;
         --bg-2: #e8edff;
-        --panel: rgba(255, 255, 255, 0.86);
-        --panel-2: rgba(255, 255, 255, 0.96);
-        --line: rgba(84, 101, 153, 0.16);
+        --panel: rgba(255,255,255,0.88);
+        --panel-2: rgba(255,255,255,0.96);
+        --line: rgba(84,101,153,0.16);
         --text: #1d263d;
         --text-strong: #0e172d;
         --text-muted: #58698c;
         --accent: #7c5cff;
         --accent-2: #27bbee;
         --accent-3: #2eb87d;
-        --accent-soft: rgba(124, 92, 255, 0.12);
+        --accent-soft: rgba(124,92,255,0.12);
         --danger: #e74d69;
         --success: #29b26d;
         --warning: #d5a01b;
-        --shadow-sm: rgba(73, 88, 128, 0.12);
-        --shadow-lg: rgba(67, 79, 116, 0.18);
-        --overlay: rgba(26, 36, 58, 0.24);
+        --shadow-sm: rgba(73,88,128,0.12);
+        --shadow-lg: rgba(67,79,116,0.18);
       }
 
       * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
       html, body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        font-family: 'Inter', sans-serif;
-        background: var(--bg);
-        color: var(--text);
+        margin: 0; padding: 0; min-height: 100vh; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
       }
-
       body {
         background:
-          radial-gradient(circle at top left, rgba(167, 139, 250, 0.18), transparent 18%),
-          radial-gradient(circle at bottom right, rgba(94, 231, 255, 0.15), transparent 20%),
+          radial-gradient(circle at top left, rgba(167,139,250,0.18), transparent 18%),
+          radial-gradient(circle at bottom right, rgba(94,231,255,0.15), transparent 20%),
           var(--bg);
-        transition: background 0.25s ease, color 0.25s ease;
+        transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
       }
-
       body::before {
-        content: "";
-        position: fixed;
-        inset: -20% -15% auto auto;
-        width: 60%;
-        height: 60%;
-        background: radial-gradient(circle, rgba(167,139,250,0.28), transparent 60%);
-        pointer-events: none;
-        filter: blur(30px);
-        z-index: 0;
+        content: ""; position: fixed; inset: -20% -15% auto auto; width: 60%; height: 60%;
+        background: radial-gradient(circle, rgba(167,139,250,0.28), transparent 60%); pointer-events: none; filter: blur(30px); z-index: 0;
       }
 
       a, button, input, select, textarea {
-        font: inherit;
-        color: inherit;
-        border: none;
-        outline: none;
+        font: inherit; color: inherit; border: none; outline: none;
       }
-
       button { cursor: pointer; }
-
       input, select {
-        width: 100%;
-        border-radius: 12px;
-        padding: 11px 13px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--line);
-        color: var(--text);
-        transition: 0.2s ease;
+        width: 100%; border-radius: 12px; padding: 11px 13px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); color: var(--text); transition: 0.2s ease;
       }
-
       input::placeholder { color: var(--text-muted); }
-      input:focus, select:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.12);
-      }
+      input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(167,139,250,0.12); }
 
       .app-shell {
-        position: relative;
-        z-index: 1;
-        max-width: 440px;
-        min-height: 100vh;
-        margin: 0 auto;
-        padding: 78px 16px 92px;
+        position: relative; z-index: 1; max-width: 440px; min-height: 100vh; margin: 0 auto; padding: 78px 16px 92px;
       }
 
       .topbar {
-        position: fixed;
-        top: 12px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: min(440px, calc(100% - 16px));
-        height: 60px;
-        padding: 0 12px;
-        border-radius: 18px;
-        background: rgba(10, 12, 21, 0.72);
-        border: 1px solid rgba(167, 139, 250, 0.12);
-        backdrop-filter: blur(14px);
-        box-shadow: 0 11px 28px rgba(0,0,0,0.18);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        z-index: 30;
+        position: fixed; top: 12px; left: 50%; transform: translateX(-50%); width: min(440px, calc(100% - 16px));
+        height: 60px; padding: 0 12px; border-radius: 18px; background: rgba(10,12,21,0.72); border: 1px solid rgba(167,139,250,0.12); backdrop-filter: blur(14px); box-shadow: 0 11px 28px rgba(0,0,0,0.18); display: flex; align-items: center; justify-content: space-between; z-index: 30;
       }
-
       :root[data-theme="light"] .topbar {
-        background: rgba(255, 255, 255, 0.72);
-        border: 1px solid rgba(124, 92, 255, 0.1);
-        box-shadow: 0 12px 24px rgba(70, 88, 140, 0.08);
+        background: rgba(255,255,255,0.72); border: 1px solid rgba(124,92,255,0.1); box-shadow: 0 12px 24px rgba(70,88,140,0.08);
       }
-
       .brand { display: flex; align-items: center; gap: 10px; }
       .brand-icon {
         width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px;
         background: linear-gradient(135deg, rgba(167,139,250,0.18), rgba(94,231,255,0.12));
         border: 1px solid rgba(167,139,250,0.28); color: var(--accent); box-shadow: 0 0 18px rgba(167,139,250,0.18);
       }
-      .brand-text {
-        font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: 0.04em; font-size: 1rem;
-      }
+      .brand-text { font-family: 'Space Grotesk', sans-serif; font-weight: 800; letter-spacing: 0.04em; font-size: 1rem; }
       .brand-text span { color: var(--accent); }
-
       .topbar-actions { display: flex; align-items: center; gap: 8px; }
       .icon-btn {
-        width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px;
-        background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--text); transition: 0.2s ease;
+        width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--text); transition: 0.2s ease;
       }
       .icon-btn:active { transform: translateY(1px); background: var(--accent-soft); }
 
       .main-content { display: grid; gap: 18px; }
-
       .player-card, .hero-section, .guild-card, .calendar-card, .task-form, .task-item {
-        background: linear-gradient(135deg, var(--panel), var(--panel-2));
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        background: linear-gradient(135deg, var(--panel), var(--panel-2)); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 12px 24px rgba(0,0,0,0.08);
       }
-
-      .player-card {
-        position: relative; overflow: hidden; padding: 18px 18px 14px;
-      }
-      .player-card::before {
-        content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(167,139,250,0.08), transparent 52%); pointer-events: none;
-      }
-      .player-header {
-        position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
-      }
+      .player-card { position: relative; overflow: hidden; padding: 18px 18px 14px; animation: riseIn 0.5s ease both; }
+      .player-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(167,139,250,0.08), transparent 52%); pointer-events: none; }
+      .player-header { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
       .player-info { min-width: 0; flex: 1; }
       .player-label { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
       .player-name { margin-top: 6px; color: var(--text-muted); font-size: 0.83rem; font-weight: 700; }
-      .player-level {
-        margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; line-height: 1; font-weight: 800; letter-spacing: -0.05em;
-      }
-      .avatar-frame {
-        position: relative; width: 98px; height: 98px; flex-shrink: 0; border-radius: 18px; overflow: hidden; border: 2px solid rgba(167,139,250,0.42); box-shadow: 0 0 20px rgba(167,139,250,0.22); background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(94, 231, 255, 0.08));
-      }
+      .player-level { margin-top: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; line-height: 1; font-weight: 800; letter-spacing: -0.05em; }
+      .avatar-frame { position: relative; width: 98px; height: 98px; flex-shrink: 0; border-radius: 18px; overflow: hidden; border: 2px solid rgba(167,139,250,0.42); box-shadow: 0 0 20px rgba(167,139,250,0.22); background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(94,231,255,0.08)); }
       .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
       .avatar-frame::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 32%, rgba(0,0,0,0.16)); pointer-events: none; }
-
       .progress-section { position: relative; z-index: 1; margin-top: 16px; }
-      .progress-text {
-        display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; font-weight: 700; color: var(--text-muted);
-      }
-      .progress-bar {
-        width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); overflow: hidden;
-      }
-      .progress-fill {
-        height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px rgba(167,139,250,0.24); transition: width 0.3s ease;
-      }
-      .title-badge {
-        display: inline-block; margin-top: 12px; padding: 6px 12px; border-radius: 999px; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2);
-      }
+      .progress-text { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; font-weight: 700; color: var(--text-muted); }
+      .progress-bar { width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); overflow: hidden; }
+      .progress-fill { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px rgba(167,139,250,0.24); transition: width 0.3s ease; }
+      .title-badge { display: inline-block; margin-top: 12px; padding: 6px 12px; border-radius: 999px; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2); }
 
       .stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-      .stat-box { padding: 12px 8px; text-align: center; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); }
+      .stat-box { padding: 12px 8px; text-align: center; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); animation: riseIn 0.5s ease both; }
       .stat-label { margin-bottom: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
       .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--accent); }
 
-      .hero-section {
-        position: relative; padding: 18px; min-height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-      }
+      .hero-section { position: relative; padding: 18px; min-height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center; animation: riseIn 0.6s ease both; }
       .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transform: scale(1.08); filter: blur(2px) saturate(1.15) contrast(1.08); }
-      .hero-section::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 12, 21, 0.12), rgba(10, 12, 21, 0.7)); z-index: 0; }
-      :root[data-theme="light"] .hero-section::before { background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(9, 16, 29, 0.55)); }
+      .hero-section::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,12,21,0.12), rgba(10,12,21,0.7)); z-index: 0; }
+      :root[data-theme="light"] .hero-section::before { background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(9,16,29,0.55)); }
       .hero-content { position: relative; z-index: 1; text-align: center; max-width: 290px; }
       .hero-title { margin: 0 0 10px; font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; line-height: 1; letter-spacing: -0.05em; }
       .hero-title span { color: var(--accent-2); }
       .hero-desc { margin: 0; font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.92); font-weight: 600; }
 
       .guild-board { display: grid; gap: 12px; }
-      .guild-card { padding: 14px; }
-      .guild-card-header {
-        display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; color: var(--text-muted); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-      }
+      .guild-card { padding: 14px; animation: riseIn 0.7s ease both; }
+      .guild-card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; color: var(--text-muted); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
       .achievement-list, .goals-list, .tasks-container { display: grid; gap: 8px; }
-      .achievement-item, .goal-item {
-        display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(167,139,250,0.08);
-      }
-      .achievement-icon, .goal-icon {
-        width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2); color: var(--accent);
-      }
+      .achievement-item, .goal-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(167,139,250,0.08); }
+      .achievement-icon, .goal-icon { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2); color: var(--accent); }
       .achievement-copy, .goal-copy { flex: 1; min-width: 0; }
       .achievement-copy strong, .goal-copy strong { display: block; line-height: 1.2; }
       .achievement-copy span, .goal-copy span { display: block; margin-top: 2px; font-size: 10px; color: var(--text-muted); }
       .goal-progress { width: 100%; height: 7px; margin-top: 8px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid var(--line); overflow: hidden; }
       .goal-progress > span { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
 
-      .calendar-card { padding: 14px; }
+      .calendar-card { padding: 14px; animation: riseIn 0.8s ease both; }
       .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: var(--text-muted); font-size: 12px; font-weight: 700; }
       .chart { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; align-items: end; min-height: 120px; }
       .chart-bar { position: relative; display: flex; align-items: flex-end; justify-content: center; height: 100%; min-height: 84px; }
-      .chart-bar > span { width: 100%; max-width: 26px; height: 30%; border-radius: 10px 10px 6px 6px; background: linear-gradient(180deg, var(--accent-2), var(--accent)); box-shadow: 0 8px 14px rgba(94,231,255,0.18); }
+      .chart-bar > span { width: 100%; max-width: 26px; height: 30%; border-radius: 10px 10px 6px 6px; background: linear-gradient(180deg, var(--accent-2), var(--accent)); box-shadow: 0 8px 14px rgba(94,231,255,0.18); animation: pulseBar 0.8s ease both; }
       .chart-bar.today > span { background: linear-gradient(180deg, var(--warning), var(--accent)); }
 
       .task-form { padding: 12px; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
@@ -253,14 +164,10 @@
       .task-form button, .action-btn { background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.7)); color: var(--bg); border: 1px solid rgba(167,139,250,0.3); box-shadow: 0 10px 20px rgba(167,139,250,0.18); }
       .ghost-btn { background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--text); }
 
-      .task-item {
-        position: relative; display: flex; align-items: flex-start; gap: 10px; padding: 12px 12px; transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
-      }
+      .task-item { position: relative; display: flex; align-items: flex-start; gap: 10px; padding: 12px 12px; transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease; animation: riseIn 0.4s ease both; }
       .task-item:active { transform: translateY(1px); }
       .task-item.completed { opacity: 0.72; }
-      .task-checkbox {
-        width: 24px; height: 24px; min-width: 24px; border-radius: 8px; border: 2px solid var(--line); background: rgba(255,255,255,0.02); display: grid; place-items: center; color: var(--accent); font-size: 12px; margin-top: 2px;
-      }
+      .task-checkbox { width: 24px; height: 24px; min-width: 24px; border-radius: 8px; border: 2px solid var(--line); background: rgba(255,255,255,0.02); display: grid; place-items: center; color: var(--accent); font-size: 12px; margin-top: 2px; }
       .task-item.completed .task-checkbox { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; color: var(--bg); box-shadow: 0 0 10px rgba(167,139,250,0.3); }
       .task-content { flex: 1; min-width: 0; }
       .task-title { margin: 0 0 6px; font-size: 13px; font-weight: 600; line-height: 1.35; }
@@ -269,7 +176,7 @@
       .task-xp, .task-date { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
       .task-xp { color: var(--accent); background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2); }
       .task-date { color: var(--text-muted); background: rgba(255,255,255,0.04); }
-      .task-remove { width: 28px; height: 28px; border-radius: 10px; background: transparent; border: 1px solid rgba(255, 107, 129, 0.18); color: var(--danger); display: grid; place-items: center; margin-left: auto; flex-shrink: 0; }
+      .task-remove { width: 28px; height: 28px; border-radius: 10px; background: transparent; border: 1px solid rgba(255,107,129,0.18); color: var(--danger); display: grid; place-items: center; margin-left: auto; flex-shrink: 0; }
 
       .empty-state { padding: 32px 20px; text-align: center; background: rgba(255,255,255,0.02); border: 1px dashed rgba(167,139,250,0.22); border-radius: 18px; color: var(--text-muted); }
       .empty-state i { display: block; margin-bottom: 10px; font-size: 1.8rem; color: var(--accent); }
@@ -283,10 +190,16 @@
       .nav-label { font-size: 10px; font-weight: 700; text-transform: capitalize; }
 
       .toast {
-        position: fixed; left: 50%; bottom: 98px; transform: translateX(-50%) translateY(16px); padding: 10px 14px; max-width: min(82vw, 280px); border-radius: 12px; background: rgba(16, 21, 35, 0.96); border: 1px solid rgba(167,139,250,0.22); color: var(--text); font-size: 12px; font-weight: 700; text-align: center; opacity: 0; pointer-events: none; transition: all 0.25s ease; z-index: 80;
+        position: fixed; left: 50%; bottom: 98px; transform: translateX(-50%) translateY(16px); padding: 10px 14px; max-width: min(82vw, 280px); border-radius: 12px; background: rgba(16,21,35,0.96); border: 1px solid rgba(167,139,250,0.22); color: var(--text); font-size: 12px; font-weight: 700; text-align: center; opacity: 0; pointer-events: none; transition: all 0.25s ease; z-index: 80;
       }
       .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
       .hidden-file-input { display: none; }
+      .sync-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 10px rgba(124,247,191,0.44); }
+      .offline .dot { background: var(--warning); box-shadow: 0 0 10px rgba(247,201,109,0.4); }
+
+      @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes pulseBar { 0% { transform: scaleY(0.6); opacity: 0.5; } 100% { transform: scaleY(1); opacity: 1; } }
 
       @media (max-width: 380px) { .task-form { grid-template-columns: 1fr; } .task-form button { width: 100%; } }
     </style>
@@ -342,7 +255,7 @@
         <section class="calendar-card">
           <div class="calendar-header">
             <span>Produtividade</span>
-            <strong id="productivityValue">72%</strong>
+            <div class="sync-indicator" id="syncIndicator"><span class="dot"></span><strong id="syncText">Online</strong></div>
           </div>
           <div id="chart" class="chart" aria-label="Gráfico de produtividade"></div>
         </section>
@@ -371,6 +284,7 @@
 
     <script>
       const STORAGE_KEY = 'nekoquest-state-v2';
+
       const defaultState = {
         version: 2,
         theme: 'dark',
@@ -413,7 +327,7 @@
           { id: crypto.randomUUID(), title: 'Feedback com cliente / equipe', xp: 20, completed: false, date: 'Hoje', createdAt: Date.now() }
         ],
         chart: [68, 72, 80, 74, 90, 86, 94],
-        online: { connected: true, lastSync: new Date().toISOString() }
+        online: { connected: navigator.onLine, lastSync: new Date().toISOString() }
       };
 
       const state = loadState();
@@ -422,7 +336,8 @@
         try {
           const raw = localStorage.getItem(STORAGE_KEY);
           if (!raw) return structuredClone(defaultState);
-          return mergeState(defaultState, JSON.parse(raw));
+          const parsed = JSON.parse(raw);
+          return mergeState(defaultState, parsed);
         } catch (error) {
           return structuredClone(defaultState);
         }
@@ -431,7 +346,6 @@
       function mergeState(base, incoming) {
         const merged = structuredClone(base);
         if (!incoming || typeof incoming !== 'object') return merged;
-
         merged.theme = incoming.theme === 'light' ? 'light' : 'dark';
         if (Array.isArray(incoming.checkIns)) merged.checkIns = incoming.checkIns;
         if (Array.isArray(incoming.tasks)) merged.tasks = incoming.tasks;
@@ -445,11 +359,8 @@
       }
 
       function saveState() {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        } catch (error) {
-          showToast('Não foi possível salvar no navegador.');
-        }
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+        catch (_) { showToast('Não foi possível salvar no navegador.'); }
       }
 
       function formatDate(date) {
@@ -459,9 +370,7 @@
       function getCurrentStreak() {
         const dates = new Set((state.checkIns || []).map(item => String(item).slice(0, 10)));
         if (!dates.size) return 0;
-
-        let streak = 0;
-        const cursor = new Date(); cursor.setHours(0, 0, 0, 0);
+        let streak = 0; const cursor = new Date(); cursor.setHours(0,0,0,0);
         for (let i = 0; i < 365; i++) {
           const iso = formatDate(cursor);
           if (dates.has(iso)) { streak += 1; cursor.setDate(cursor.getDate() - 1); }
@@ -473,9 +382,7 @@
       function touchDailyCheckIn() {
         const today = formatDate(new Date());
         const existing = (state.checkIns || []).map(item => String(item).slice(0, 10));
-        if (!existing.includes(today)) {
-          state.checkIns = [...existing, today];
-        }
+        if (!existing.includes(today)) state.checkIns = [...existing, today];
         state.player.streak = getCurrentStreak();
         if (state.player.streak > state.player.bestStreak) state.player.bestStreak = state.player.streak;
         state.player.lastCheckIn = today;
@@ -484,8 +391,8 @@
       function applyTheme(theme) {
         state.theme = theme;
         document.documentElement.setAttribute('data-theme', theme);
-        const icon = document.getElementById('themeToggle').querySelector('i');
-        icon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        const themeIcon = document.getElementById('themeToggle').querySelector('i');
+        themeIcon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
         const metaTheme = document.querySelector('meta[name="theme-color"]');
         if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#0b0d14' : '#f3f7ff');
         saveState();
@@ -499,7 +406,17 @@
         showToast._timer = setTimeout(() => toast.classList.remove('show'), 1800);
       }
 
-      function getCompletedTasksCount() { return state.tasks.filter(task => task.completed).length; }
+      function updateSyncUI() {
+        const isOnline = navigator.onLine && state.online?.connected !== false;
+        const indicator = document.getElementById('syncIndicator');
+        const text = document.getElementById('syncText');
+        indicator.classList.toggle('offline', !isOnline);
+        text.textContent = isOnline ? 'Online' : 'Offline';
+      }
+
+      function getCompletedTasksCount() {
+        return state.tasks.filter(task => task.completed).length;
+      }
 
       function getPetStageInfo() {
         const thresholds = [
@@ -644,13 +561,12 @@
 
       function buildChart() {
         const chartEl = document.getElementById('chart');
-        const productivity = document.getElementById('productivityValue');
         const avg = Math.round(state.chart.reduce((sum, value) => sum + value, 0) / state.chart.length);
-        productivity.textContent = `${avg}%`;
         chartEl.innerHTML = state.chart.map((value, index) => {
           const isToday = index === state.chart.length - 1;
           return `<div class="chart-bar ${isToday ? 'today' : ''}"><span style="height:${Math.max(18, value)}%"></span></div>`;
         }).join('');
+        document.getElementById('syncText').textContent = `${avg}%`;
       }
 
       function renderTasks() {
@@ -660,7 +576,6 @@
           taskList.innerHTML = `<div class="empty-state"><i class="fa-solid fa-list-check"></i>Nenhuma missão por aqui. Adicione uma nova quest para começar.</div>`;
           return;
         }
-
         taskList.innerHTML = tasks.map(task => `
           <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
             <button class="task-checkbox" type="button" aria-label="Completar tarefa">${task.completed ? '<i class="fa-solid fa-check"></i>' : ''}</button>
@@ -735,15 +650,17 @@
             const parsed = JSON.parse(String(event.target.result));
             Object.assign(state, mergeState(defaultState, parsed));
             touchDailyCheckIn(); saveState(); renderAll(); showToast('Dados importados com sucesso.');
-          } catch (error) { showToast('Arquivo inválido.'); }
+          } catch (_) { showToast('Arquivo inválido.'); }
         };
         reader.readAsText(file);
       }
 
       function syncNow() {
-        state.online.connected = true;
+        state.online.connected = navigator.onLine;
         state.online.lastSync = new Date().toISOString();
-        saveState(); showToast('Sincronização online concluída.');
+        saveState();
+        updateSyncUI();
+        showToast('Sincronização online concluída.');
       }
 
       function bindEvents() {
@@ -751,13 +668,11 @@
         document.getElementById('exportBtn').addEventListener('click', exportData);
         document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importInput').click());
         document.getElementById('syncBtn').addEventListener('click', syncNow);
-
         document.getElementById('taskForm').addEventListener('submit', (event) => {
           event.preventDefault();
           const input = document.getElementById('taskInput');
           addTask(input.value); input.value = ''; input.focus();
         });
-
         document.getElementById('taskList').addEventListener('click', (event) => {
           const item = event.target.closest('.task-item');
           if (!item) return;
@@ -765,7 +680,6 @@
           if (event.target.closest('.task-checkbox')) { toggleTask(taskId); return; }
           if (event.target.closest('.task-remove')) { deleteTask(taskId); }
         });
-
         document.getElementById('importInput').addEventListener('change', (event) => {
           const [file] = event.target.files;
           if (file) importData(file);
@@ -773,13 +687,23 @@
         });
       }
 
+      function registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+          });
+        }
+      }
+
       function renderAll() {
         touchDailyCheckIn();
         applyTheme(state.theme);
-        buildPlayerCard(); buildPetAndStreak(); buildStats(); buildAchievements(); buildWeeklyGoals(); buildChart(); renderTasks();
+        buildPlayerCard(); buildPetAndStreak(); buildStats(); buildAchievements(); buildWeeklyGoals(); buildChart(); renderTasks(); updateSyncUI();
       }
 
-      bindEvents(); renderAll();
+      window.addEventListener('online', () => { state.online.connected = true; updateSyncUI(); showToast('Conectado novamente.'); saveState(); });
+      window.addEventListener('offline', () => { state.online.connected = false; updateSyncUI(); showToast('Modo offline ativado.'); saveState(); });
+      bindEvents(); renderAll(); registerServiceWorker();
     </script>
   </body>
 </html>
