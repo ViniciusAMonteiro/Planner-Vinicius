@@ -16,7 +16,6 @@
       --bg: #0b1020;
       --bg-2: #12192b;
       --panel: rgba(16, 21, 35, 0.92);
-      --panel-2: rgba(22, 30, 47, 0.95);
       --line: rgba(151, 166, 203, 0.18);
       --text: #eef2ff;
       --text-strong: #ffffff;
@@ -28,2225 +27,371 @@
       --danger: #ff6b81;
       --success: #7cf7bf;
       --warning: #f7c96d;
-      --shadow-sm: rgba(0, 0, 0, 0.2);
       --shadow-lg: rgba(0, 0, 0, 0.42);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
     html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
+      margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
+      min-height: 100vh; overflow-x: hidden;
     }
-
     body {
       background:
         radial-gradient(circle at top left, rgba(167,139,250,0.18), transparent 18%),
         radial-gradient(circle at bottom right, rgba(94,231,255,0.10), transparent 20%),
         var(--bg);
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -30% -10% auto auto;
-      width: 70%;
-      height: 70%;
-      background: radial-gradient(circle, var(--accent-glow), transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-      filter: blur(30px);
-    }
-
-    a, button, input, select, textarea {
-      font: inherit;
-      border: none;
-      outline: none;
-    }
-
+    a, button { font: inherit; }
     button { cursor: pointer; }
 
-    input, select {
-      background: rgba(18, 21, 31, 0.8);
-      border: 1px solid var(--line);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 11px 13px;
-      width: 100%;
-      transition: 0.2s ease;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--accent);
-      background: rgba(18, 21, 31, 0.95);
-      box-shadow: 0 0 0 2px rgba(167,139,250,0.13);
-    }
-
-    img { max-width: 100%; display: block; }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      min-height: 100vh;
-      padding: 0;
-      margin: 0;
-    }
-
+    .container { width: 100%; min-height: 100vh; position: relative; }
     .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: rgba(10,12,21,0.75);
-      border-bottom: 1px solid rgba(167,139,250,0.08);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px;
-      z-index: 30;
+      position: fixed; inset: 0 0 auto 0; height: 60px; background: rgba(10,12,21,0.75); border-bottom: 1px solid rgba(167,139,250,0.08);
+      backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 14px; z-index: 30;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .brand { display: flex; align-items: center; gap: 10px; }
     .brand-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(94,231,255,0.1));
-      border: 1px solid rgba(167,139,250,0.3);
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 20px;
+      width: 40px; height: 40px; background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(94,231,255,0.1));
+      border: 1px solid rgba(167,139,250,0.3); border-radius: 12px; display: grid; place-items: center; font-size: 20px;
       box-shadow: 0 0 12px var(--accent-glow);
     }
-
     .brand-text {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
+      font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 0.04em;
     }
-
     .brand-text span { color: var(--accent); }
-
-    .topbar-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
     .icon-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      color: var(--text);
-      display: grid;
-      place-items: center;
-      transition: 0.2s ease;
+      width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(151,166,203,0.18);
+      color: var(--text); display: grid; place-items: center; transition: 0.2s ease;
     }
+    .main-content { margin-top: 60px; margin-bottom: 72px; padding: 16px; }
 
-    .icon-btn:active {
-      background: rgba(167,139,250,0.15);
-      border-color: rgba(167,139,250,0.3);
-      transform: translateY(1px);
+    .panel {
+      background: linear-gradient(135deg, rgba(18,21,31,0.92), rgba(15,17,26,0.96)); border: 1px solid rgba(167,139,250,0.18);
+      border-radius: 22px; padding: 18px; box-shadow: 0 14px 36px var(--shadow-lg); margin-bottom: 18px; overflow: hidden;
     }
-
-    .main-content {
-      margin-top: 60px;
-      margin-bottom: 72px;
-      padding: 16px;
-    }
-
-    .player-card {
-      position: relative;
-      background: linear-gradient(135deg, rgba(18,21,31,0.94), rgba(15,17,26,0.96));
-      border: 1px solid rgba(167,139,250,0.18);
-      border-radius: 22px;
-      padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 14px 36px var(--shadow-lg), inset 0 0 0 1px rgba(255,255,255,0.02);
-      overflow: hidden;
-    }
-
-    .player-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(167,139,250,0.08), transparent 48%);
-      pointer-events: none;
-    }
-
-    .player-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .player-info { flex: 1; min-width: 0; }
-
-    .player-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(167,139,250,0.8);
-      margin-bottom: 4px;
-    }
-
-    .player-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
+    .player-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+    .player-label { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(167,139,250,0.8); }
+    .player-name { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-top: 6px; }
     .player-level {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.2rem;
-      line-height: 1;
-      font-weight: 800;
-      margin: 0;
+      font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; line-height: 1; font-weight: 800; margin: 10px 0 0;
       letter-spacing: -0.04em;
     }
-
-    .avatar-frame {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      border-radius: 16px;
-      border: 2px solid var(--accent);
-      overflow: hidden;
-      box-shadow: 0 0 20px var(--accent-glow), inset 0 0 20px var(--accent-glow);
-      flex-shrink: 0;
-      background: rgba(167,139,250,0.08);
+    .avatar {
+      width: 96px; height: 96px; border-radius: 16px; border: 2px solid var(--accent); overflow: hidden; background: rgba(167,139,250,0.08);
+      box-shadow: 0 0 20px var(--accent-glow), inset 0 0 20px var(--accent-glow); flex-shrink: 0;
     }
-
-    .avatar-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .avatar-frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.2));
-      pointer-events: none;
-    }
-
-    .progress-section { position: relative; z-index: 1; }
-
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(167,139,250,0.1);
-      margin-bottom: 12px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      border-radius: inherit;
-      box-shadow: 0 0 12px var(--accent-glow);
-      transition: width 0.35s ease;
-    }
-
-    .title-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(167,139,250,0.15);
-      border: 1px solid rgba(167,139,250,0.3);
-      border-radius: 999px;
-      padding: 6px 12px;
-      margin-top: 2px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .progress { margin-top: 16px; }
+    .progress-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--text-muted); }
+    .bar { width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden; border: 1px solid rgba(167,139,250,0.1); margin-top: 8px; }
+    .fill { height: 100%; width: 68%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: inherit; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
     .stat-box {
-      background: rgba(18,21,31,0.7);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+      background: rgba(18,21,31,0.7); border: 1px solid var(--line); border-radius: 14px; padding: 12px; text-align: center;
     }
+    .stat-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--accent); }
 
-    .stat-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin: 0 0 12px; }
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 800; margin: 0; }
 
-    .stat-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-
-    .hero-section {
-      position: relative;
-      background: linear-gradient(135deg, rgba(18,21,31,0.9), rgba(15,17,26,0.9));
-      border: 1px solid rgba(167,139,250,0.15);
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 12px 30px var(--shadow-lg), inset 0 0 0 1px rgba(255,255,255,0.02);
-      min-height: 245px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .hero-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(5, 7, 16, 0.15), rgba(5, 7, 16, 0.68));
-      backdrop-filter: blur(3px);
-      z-index: 0;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      object-fit: cover;
-      opacity: 0.86;
-      filter: blur(2px) saturate(1.15) contrast(1.1);
-      transform: scale(1.08);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 300px;
-      padding-top: 14px;
-      text-shadow: 0 3px 18px rgba(0,0,0,0.45);
-    }
-
-    .hero-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.9rem;
-      line-height: 1.08;
-      font-weight: 800;
-      margin: 0 0 10px;
-      letter-spacing: -0.04em;
-      color: var(--text-strong);
-    }
-
-    .hero-title span { color: var(--accent-2); }
-
-    .hero-desc {
-      font-size: 12px;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.9);
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .guild-board {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .guild-card {
-      background: linear-gradient(135deg, rgba(18,21,31,0.7), rgba(15,17,26,0.8));
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .guild-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .quest-log,
-    .achievements-list,
-    .loot-list,
-    .shop-list,
-    .daily-mission-card {
-      display: grid;
-      gap: 8px;
-    }
-
-    .quest-log-item,
-    .achievement-item,
-    .loot-item,
-    .shop-item,
-    .daily-mission-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(167,139,250,0.08);
-      font-size: 12px;
-    }
-
-    .quest-log-item strong,
-    .achievement-copy strong,
-    .loot-item strong,
-    .shop-item strong,
-    .daily-mission-box strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .quest-log-item .status {
-      margin-left: auto;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 7px;
-      border-radius: 999px;
-      background: rgba(94,231,255,0.1);
-      color: var(--accent-2);
-      border: 1px solid rgba(94,231,255,0.2);
-    }
-
-    .achievement-icon,
-    .loot-icon,
-    .shop-icon,
-    .daily-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 9px;
-      display: grid;
-      place-items: center;
-      color: var(--accent);
-      background: rgba(167,139,250,0.12);
-      border: 1px solid rgba(167,139,250,0.2);
-      flex-shrink: 0;
-    }
-
-    .achievement-copy,
-    .loot-copy,
-    .shop-copy,
-    .daily-copy {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .achievement-copy span,
-    .loot-copy span,
-    .shop-copy span,
-    .daily-copy span {
-      display: block;
-      color: var(--text-muted);
-      font-size: 10px;
-      margin-top: 2px;
-    }
-
-    .daily-mission-box {
-      justify-content: space-between;
-      padding: 12px 10px;
-    }
-
-    .daily-mission-box .reward-pill {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-radius: 999px;
-      color: var(--warning);
-      background: rgba(247, 201, 109, 0.12);
-      border: 1px solid rgba(247, 201, 109, 0.2);
-      padding: 4px 8px;
-    }
-
-    .claim-btn,
-    .sell-btn,
-    .equip-btn,
-    .focus-action,
-    .form-submit {
-      transition: 0.2s ease;
-    }
-
-    .claim-btn,
-    .equip-btn,
-    .form-submit {
-      padding: 9px 12px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.72));
-      color: var(--bg);
-      font-weight: 800;
-      border: 1px solid rgba(167,139,250,0.3);
-      box-shadow: 0 10px 22px var(--accent-glow);
-    }
-
-    .sell-btn {
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(167,139,250,0.12);
-      color: var(--text-muted);
-      font-weight: 700;
-    }
-
-    .shop-item,
-    .loot-item {
-      justify-content: space-between;
-    }
-
-    .shop-item .shop-copy {
-      margin-right: auto;
-    }
-
-    .pill-tag {
-      display: inline-block;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(135, 206, 250, 0.12);
-      border: 1px solid rgba(94,231,255,0.2);
-      color: var(--accent-2);
-      padding: 4px 7px;
-      border-radius: 999px;
-    }
-
-    .focus-card {
-      display: grid;
-      gap: 10px;
-    }
-
-    .focus-controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .focus-pill {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(167,139,250,0.2);
-      background: rgba(255,255,255,0.02);
-      color: var(--text-muted);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .focus-pill.active {
-      background: rgba(167,139,250,0.14);
-      color: var(--accent);
-      border-color: rgba(167,139,250,0.35);
-    }
-
-    .focus-time {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--text-strong);
-      letter-spacing: -0.04em;
-      text-align: center;
-      padding: 8px 0 2px;
-    }
-
-    .focus-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .focus-action {
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(167,139,250,0.18);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .focus-action.primary {
-      background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.72));
-      color: var(--bg);
-      border-color: transparent;
-    }
-
-    .calendar-panel,
-    .tasks-section {
-      margin-bottom: 18px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      padding: 0 4px;
-    }
-
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin: 0;
-    }
-
-    .calendar-card {
-      background: linear-gradient(135deg, rgba(18,21,31,0.7), rgba(15,17,26,0.8));
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .calendar-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      color: var(--text-muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .calendar-weekdays,
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 6px;
-    }
-
-    .calendar-weekdays {
-      margin-bottom: 8px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .calendar-day {
-      position: relative;
-      min-height: 42px;
-      border-radius: 10px;
-      border: 1px solid rgba(167,139,250,0.08);
-      background: rgba(255,255,255,0.02);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      overflow: hidden;
-    }
-
-    .calendar-day.muted { opacity: 0.4; }
-
-    .calendar-day.today {
-      background: rgba(167,139,250,0.12);
-      border-color: rgba(167,139,250,0.30);
-      color: var(--text-strong);
-      box-shadow: 0 0 0 1px rgba(167,139,250,0.10);
-    }
-
-    .calendar-day.has-task { border-color: rgba(94,231,255,0.35); }
-
-    .calendar-day .dot {
-      position: absolute;
-      bottom: 6px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-2);
-      box-shadow: 0 0 8px rgba(94,231,255,0.7);
-    }
-
-    .calendar-day .done-badge {
-      position: absolute;
-      top: 4px;
-      right: 5px;
-      font-size: 9px;
-      border-radius: 999px;
-      padding: 2px 4px;
-      background: rgba(124, 247, 191, 0.18);
-      color: var(--success);
-      border: 1px solid rgba(124,247,191,0.3);
-    }
-
-    .filter-buttons {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-right: 4px;
-      scrollbar-width: none;
-    }
-
-    .filter-buttons::-webkit-scrollbar { display: none; }
-
-    .filter-btn {
-      padding: 7px 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--text-muted);
-      font-size: 11px;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: 0.2s ease;
-    }
-
-    .filter-btn.active {
-      background: rgba(167,139,250,0.18);
-      border-color: rgba(167,139,250,0.38);
-      color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(167,139,250,0.1);
-    }
-
-    .tasks-container {
-      display: grid;
-      gap: 10px;
-    }
-
+    .task-list { display: grid; gap: 10px; }
     .task-item {
-      background: linear-gradient(135deg, rgba(18,21,31,0.72), rgba(15,17,26,0.72));
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-      display: flex;
-      gap: 11px;
-      align-items: flex-start;
-      transition: 0.2s ease;
-      position: relative;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.01);
+      background: linear-gradient(135deg, rgba(18,21,31,0.72), rgba(15,17,26,0.72)); border: 1px solid var(--line); border-radius: 14px;
+      padding: 14px; display: flex; gap: 12px; align-items: flex-start; transition: 0.2s ease;
     }
-
-    .task-item:active {
-      border-color: rgba(167,139,250,0.3);
-      transform: translateY(1px);
-      background: rgba(167,139,250,0.08);
+    .task-item.completed { opacity: 0.75; }
+    .task-check {
+      min-width: 24px; width: 24px; height: 24px; border: 2px solid var(--line); border-radius: 8px; background: rgba(255,255,255,0.02);
+      display: grid; place-items: center; color: var(--accent); font-size: 12px; margin-top: 2px;
     }
+    .task-item.completed .task-check { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; color: var(--bg); }
+    .task-body { flex: 1; }
+    .task-title { font-size: 13px; font-weight: 600; margin: 0 0 6px; line-height: 1.3; }
+    .task-item.completed .task-title { text-decoration: line-through; color: var(--text-muted); }
+    .task-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .task-xp { font-size: 11px; font-weight: 800; color: var(--accent); background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2); border-radius: 999px; padding: 4px 8px; }
+    .task-date { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); background: rgba(255,255,255,0.04); padding: 4px 8px; border-radius: 6px; }
+    .task-delete { width: 28px; height: 28px; background: transparent; border: 1px solid rgba(255, 107, 129, 0.2); border-radius: 8px; color: #ff6b81; display: grid; place-items: center; font-size: 12px; }
 
-    .task-item.completed { opacity: 0.72; }
-
-    .task-checkbox {
-      min-width: 24px;
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255,255,255,0.02);
-      display: grid;
-      place-items: center;
-      margin-top: 2px;
-      transition: 0.2s ease;
-      color: var(--accent);
-      font-size: 12px;
+    .rewards-wrap { display: none; }
+    .rewards-wrap.active { display: block; }
+    .reward-header {
+      background: linear-gradient(135deg, rgba(18,21,31,0.9), rgba(15,17,26,0.9)); border: 1px solid rgba(167,139,250,0.15);
+      border-radius: 20px; padding: 18px; text-align: center; margin-bottom: 20px;
     }
-
-    .task-item.completed .task-checkbox {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border-color: transparent;
-      color: var(--bg);
-      box-shadow: 0 0 14px var(--accent-glow);
+    .reward-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+    .point-box {
+      background: linear-gradient(135deg, rgba(18,21,31,0.8), rgba(15,17,26,0.8)); border: 1px solid var(--line); border-radius: 16px;
+      padding: 16px; text-align: center;
     }
-
-    .task-content { flex: 1; min-width: 0; }
-
-    .task-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin: 0 0 6px;
-      line-height: 1.3;
-      color: var(--text);
+    .point-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .point-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .reward-grid { display: grid; gap: 12px; }
+    .reward-card {
+      background: linear-gradient(135deg, rgba(18,21,31,0.8), rgba(15,17,26,0.85)); border: 1px solid var(--line); border-radius: 16px;
+      padding: 14px; display: flex; align-items: center; gap: 12px;
     }
-
-    .task-item.completed .task-title {
-      text-decoration: line-through;
-      color: var(--text-muted);
+    .reward-icon {
+      width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; background: rgba(167,139,250,0.12);
+      border: 1px solid rgba(167,139,250,0.2); flex-shrink: 0;
     }
-
-    .task-meta {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .task-xp {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--accent);
-      background: rgba(167,139,250,0.12);
-      border: 1px solid rgba(167,139,250,0.2);
-      border-radius: 999px;
-      padding: 4px 8px;
-    }
-
-    .task-diff,
-    .task-date {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      background: rgba(255,255,255,0.04);
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-
-    .task-delete {
-      width: 28px;
-      height: 28px;
-      background: transparent;
-      border: 1px solid rgba(255, 107, 129, 0.2);
-      border-radius: 8px;
-      color: #ff6b81;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      transition: 0.2s ease;
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-
-    .task-delete:active {
-      background: #ff6b81;
-      color: white;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-muted);
-      background: rgba(255,255,255,0.02);
-      border: 1px dashed rgba(167,139,250,0.2);
-      border-radius: 16px;
-    }
-
-    .empty-state i {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 10px;
-      color: var(--accent);
+    .reward-info { flex: 1; min-width: 0; }
+    .reward-name { margin: 0 0 4px; font-size: 13px; font-weight: 700; }
+    .reward-desc { margin: 0; font-size: 11px; color: var(--text-muted); }
+    .reward-cost { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warning); background: rgba(247, 201, 109, 0.12); border: 1px solid rgba(247, 201, 109, 0.2); padding: 6px 10px; border-radius: 999px; }
+    .reward-btn {
+      padding: 10px 12px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.72));
+      color: var(--bg); font-weight: 800; border: 1px solid rgba(167,139,250,0.3); box-shadow: 0 10px 22px var(--accent-glow);
     }
 
     .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 72px;
-      background: rgba(10,12,21,0.82);
-      border-top: 1px solid rgba(167,139,250,0.08);
-      backdrop-filter: blur(10px);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      z-index: 25;
+      position: fixed; bottom: 0; left: 0; right: 0; height: 72px; background: rgba(10,12,21,0.82); border-top: 1px solid rgba(167,139,250,0.08);
+      backdrop-filter: blur(10px); display: grid; grid-template-columns: repeat(3, 1fr); z-index: 25;
     }
-
     .nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 24px;
-      transition: 0.2s ease;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-muted);
+      background: transparent; text-decoration: none; font-size: 24px; transition: 0.2s ease;
     }
-
-    .nav-btn:active {
-      color: var(--accent);
-      transform: translateY(1px);
-    }
-
-    .nav-btn.active {
-      color: var(--accent);
-      background: rgba(167,139,250,0.06);
-    }
-
-    .nav-label {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: capitalize;
-    }
+    .nav-btn.active { color: var(--accent); background: rgba(167,139,250,0.06); }
+    .nav-label { font-size: 10px; font-weight: 600; text-transform: capitalize; }
 
     .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 90px;
-      transform: translateX(-50%) translateY(20px);
-      background: rgba(16, 21, 35, 0.96);
-      border: 1px solid rgba(167,139,250,0.26);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.25s ease;
-      z-index: 60;
-      max-width: 82vw;
-      text-align: center;
+      position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(20px); background: rgba(16, 21, 35, 0.96);
+      border: 1px solid rgba(167,139,250,0.26); color: var(--text); border-radius: 12px; padding: 10px 14px; font-size: 12px; font-weight: 700;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: all 0.25s ease; z-index: 60; max-width: 82vw; text-align: center;
     }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(2,3,8,0.72);
-      backdrop-filter: blur(8px);
-      display: none;
-      place-items: center;
-      padding: 16px;
-      z-index: 50;
-    }
-
-    .modal.active { display: grid; }
-
-    .modal-box {
-      background: linear-gradient(135deg, rgba(18,21,31,0.98), rgba(15,17,26,0.98));
-      border: 1px solid rgba(167,139,250,0.15);
-      border-radius: 18px;
-      width: 100%;
-      max-width: 420px;
-      max-height: 80vh;
-      overflow-y: auto;
-      animation: slideUp 0.25s ease;
-      box-shadow: 0 20px 35px rgba(0,0,0,0.35);
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px;
-      border-bottom: 1px solid rgba(167,139,250,0.1);
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
-    }
-
-    .modal-close {
-      width: 32px;
-      height: 32px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--text-muted);
-      display: grid;
-      place-items: center;
-      transition: 0.2s ease;
-    }
-
-    .modal-close:active {
-      background: rgba(255, 107, 129, 0.15);
-      color: #ff6b81;
-    }
-
-    .modal-body {
-      padding: 18px;
-    }
-
-    .form-group { margin-bottom: 14px; }
-
-    .form-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 7px;
-    }
-
-    .diff-options {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .diff-btn {
-      padding: 10px 8px;
-      background: rgba(18,21,31,0.8);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--text);
-      font-weight: 700;
-      text-align: center;
-      font-size: 12px;
-      transition: 0.2s ease;
-    }
-
-    .diff-btn.active {
-      background: rgba(167,139,250,0.2);
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(167,139,250,0.08);
-    }
-
-    .diff-btn small {
-      display: block;
-      font-size: 10px;
-      margin-top: 4px;
-    }
-
-    .color-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .color-btn {
-      aspect-ratio: 1;
-      border-radius: 12px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .color-btn.active {
-      border-color: #fff;
-      box-shadow: 0 0 12px currentColor;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 13px;
-      background: linear-gradient(135deg, var(--accent), rgba(167,139,250,0.72));
-      border-radius: 11px;
-      color: var(--bg);
-      font-weight: 800;
-      margin-top: 12px;
-      box-shadow: 0 10px 22px var(--accent-glow);
-    }
-
-    .profile-content { text-align: center; }
-
-    .profile-avatar {
-      width: 90px;
-      height: 90px;
-      border-radius: 16px;
-      border: 2px solid var(--accent);
-      object-fit: cover;
-      margin: 0 auto 12px;
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-
-    .profile-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin: 0;
-    }
-
-    .profile-role {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin: 4px 0 14px;
-    }
-
-    .profile-stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .profile-stat {
-      background: rgba(18,21,31,0.7);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 10px;
-    }
-
-    .profile-stat-icon {
-      font-size: 1.3rem;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .profile-stat-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
-
-    .profile-stat-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     @media (min-width: 640px) {
-      .container { max-width: 600px; margin: 0 auto; }
-      .guild-board {
-        grid-template-columns: 1.2fr 1fr;
-      }
-      .guild-card:last-child {
-        grid-column: 1 / -1;
-      }
-      .hero-content {
-        position: absolute;
-        left: 18px;
-        text-align: left;
-        z-index: 2;
-      }
+      .main-content { max-width: 520px; margin: 60px auto 72px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header class="topbar">
+    <div class="topbar">
       <div class="brand">
-        <div class="brand-icon">👾</div>
+        <div class="brand-icon">🎯</div>
         <div class="brand-text">NEKO<span>QUEST</span></div>
       </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" id="profileTopBtn" aria-label="Perfil"><i class="fa-solid fa-user"></i></button>
-        <button class="icon-btn" id="themeTopBtn" aria-label="Tema"><i class="fa-solid fa-palette"></i></button>
-      </div>
-    </header>
+      <button class="icon-btn" aria-label="Configurações"><i class="fas fa-gear"></i></button>
+    </div>
 
-    <div class="main-content">
-      <div class="player-card">
-        <div class="player-header">
-          <div class="player-info">
-            <div class="player-label">Player Progress</div>
-            <div class="player-name" id="playerNameDisplay">Astra</div>
-            <h1 class="player-level" id="playerLvl">LVL 1</h1>
-          </div>
-          <div class="avatar-frame">
-            <img src="193269.jpg" alt="Avatar" />
-          </div>
-        </div>
-
-        <div class="progress-section">
-          <div class="progress-text">
-            <span id="xpCurrent">0 XP</span>
-            <span id="xpNext">NEXT: 100 XP</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="xpBar"></div>
-          </div>
-          <div class="title-badge" id="playerTitle">Iniciante</div>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-label">Total</div>
-          <div class="stat-value" id="statTotal">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Concluidas</div>
-          <div class="stat-value" id="statDone">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">XP</div>
-          <div class="stat-value" id="statXp">0</div>
-        </div>
-      </div>
-
-      <div class="hero-section">
-        <img src="193268.jpeg" alt="Gamer Cat" class="hero-image" />
-        <div class="hero-content">
-          <h2 class="hero-title">Suba de nível<br>completando <span>suas metas.</span></h2>
-          <p class="hero-desc">Crie missões, conclua objetivos e acompanhe seu progresso.</p>
-        </div>
-      </div>
-
-      <div class="guild-board">
-        <div class="guild-card">
-          <div class="guild-card-header">
-            <span>Quest Board</span>
-            <i class="fa-solid fa-scroll"></i>
-          </div>
-          <div class="quest-log" id="questLog"></div>
-        </div>
-
-        <div class="guild-card">
-          <div class="guild-card-header">
-            <span>Conquistas</span>
-            <i class="fa-solid fa-crown"></i>
-          </div>
-          <div class="achievements-list" id="achievementList"></div>
-        </div>
-
-        <div class="guild-card">
-          <div class="guild-card-header">
-            <span>Focus timer</span>
-            <i class="fa-solid fa-hourglass-half"></i>
-          </div>
-          <div class="focus-card">
-            <div class="focus-controls">
-              <button class="focus-pill active" data-mode="25">25 min</button>
-              <button class="focus-pill" data-mode="45">45 min</button>
-              <button class="focus-pill" data-mode="60">60 min</button>
+    <main class="main-content">
+      <section class="home-view view active" id="homeView">
+        <div class="panel">
+          <div class="player-header">
+            <div class="player-info">
+              <div class="player-label">Jogador</div>
+              <div class="player-name">Vinicius Monteiro</div>
+              <div class="player-level">Lv. 18</div>
             </div>
-            <div class="focus-time" id="focusTime">25:00</div>
-            <div class="focus-actions">
-              <button class="focus-action primary" id="focusStartBtn">Iniciar</button>
-              <button class="focus-action" id="focusResetBtn">Resetar</button>
+            <div class="avatar">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="avatar" />
+            </div>
+          </div>
+
+          <div class="progress">
+            <div class="progress-head">
+              <span>XP para o próximo nível</span>
+              <span>680/1000</span>
+            </div>
+            <div class="bar"><div class="fill"></div></div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-label">tarefas</div>
+              <div class="stat-value" id="taskCount">12</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">streak</div>
+              <div class="stat-value">5d</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">pontos</div>
+              <div class="stat-value" id="pointBadge">240</div>
             </div>
           </div>
         </div>
 
-        <div class="guild-card">
-          <div class="guild-card-header">
-            <span>Missão diária</span>
-            <i class="fa-solid fa-shield-heart"></i>
-          </div>
-          <div class="daily-mission-card" id="dailyMissionCard"></div>
-        </div>
-
-        <div class="guild-card">
-          <div class="guild-card-header">
-            <span>Inventário</span>
-            <i class="fa-solid fa-bag-shopping"></i>
-          </div>
-          <div class="loot-list" id="lootList"></div>
-        </div>
-
-        <div class="guild-card">
-          <div class="guild-card-header">
-            <span>Loja de itens</span>
-            <i class="fa-solid fa-store"></i>
-          </div>
-          <div class="shop-list" id="shopList"></div>
-        </div>
-      </div>
-
-      <div class="calendar-panel">
         <div class="section-header">
-          <h2 class="section-title">Calendário</h2>
-        </div>
-        <div class="calendar-card">
-          <div class="calendar-header">
-            <span id="calendarMonthLabel">Mês atual</span>
-            <span id="calendarSummary">0 tarefas</span>
-          </div>
-          <div class="calendar-weekdays">
-            <div>Dom</div>
-            <div>Seg</div>
-            <div>Ter</div>
-            <div>Qua</div>
-            <div>Qui</div>
-            <div>Sex</div>
-            <div>Sáb</div>
-          </div>
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </div>
-      </div>
-
-      <div class="tasks-section">
-        <div class="section-header">
-          <h2 class="section-title">Suas Missões</h2>
-          <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">Todas</button>
-            <button class="filter-btn" data-filter="active">Ativas</button>
-            <button class="filter-btn" data-filter="done">Feitas</button>
-          </div>
+          <h2 class="section-title">Tarefas de hoje</h2>
         </div>
 
-        <div class="tasks-container" id="tasksContainer"></div>
-      </div>
-    </div>
-  </div>
-
-  <nav class="bottom-nav" aria-label="Navegação principal">
-    <button class="nav-btn active" id="homeBtn" aria-label="Home">
-      <i class="fa-solid fa-house"></i>
-      <span class="nav-label">Home</span>
-    </button>
-    <button class="nav-btn" id="addBtn" aria-label="Adicionar">
-      <i class="fa-solid fa-plus"></i>
-      <span class="nav-label">Adicionar</span>
-    </button>
-    <button class="nav-btn" id="profileBtn" aria-label="Perfil">
-      <i class="fa-solid fa-user"></i>
-      <span class="nav-label">Perfil</span>
-    </button>
-  </nav>
-
-  <div id="toast" class="toast" aria-live="polite"></div>
-
-  <div class="modal" id="addQuestModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2>Nova Missão</h2>
-        <button class="modal-close" data-modal="addQuestModal" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Nome da Missão</label>
-          <input id="questTitle" type="text" placeholder="Ex: Estudar programação" maxlength="50" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Dificuldade</label>
-          <div class="diff-options">
-            <button class="diff-btn" data-xp="50" type="button">Fácil<small>50 XP</small></button>
-            <button class="diff-btn active" data-xp="100" type="button">Média<small>100 XP</small></button>
-            <button class="diff-btn" data-xp="250" type="button">Difícil<small>250 XP</small></button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Prioridade</label>
-          <select id="questPriority">
-            <option value="baixa">Baixa</option>
-            <option value="media" selected>Média</option>
-            <option value="alta">Alta</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Data (opcional)</label>
-          <input id="questDate" type="date" />
-        </div>
-
-        <button class="form-submit" id="createBtn" type="button">Criar Missão</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="themeModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2>Tema</h2>
-        <button class="modal-close" data-modal="themeModal" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Cor de Destaque</label>
-          <div class="color-grid" id="colorGrid">
-            <button class="color-btn active" style="background:#a78bfa; color:#a78bfa;" data-color="#a78bfa" title="Purple" type="button"></button>
-            <button class="color-btn" style="background:#5ee7ff; color:#5ee7ff;" data-color="#5ee7ff" title="Cyan" type="button"></button>
-            <button class="color-btn" style="background:#58d68d; color:#58d68d;" data-color="#58d68d" title="Green" type="button"></button>
-            <button class="color-btn" style="background:#ff6b81; color:#ff6b81;" data-color="#ff6b81" title="Red" type="button"></button>
-            <button class="color-btn" style="background:#f6c85f; color:#f6c85f;" data-color="#f6c85f" title="Yellow" type="button"></button>
-            <button class="color-btn" style="background:#ff85c0; color:#ff85c0;" data-color="#ff85c0" title="Pink" type="button"></button>
-            <button class="color-btn" style="background:#00d9ff; color:#00d9ff;" data-color="#00d9ff" title="Aqua" type="button"></button>
-            <button class="color-btn" style="background:#ff3366; color:#ff3366;" data-color="#ff3366" title="Crimson" type="button"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="profileModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2>Seu Perfil</h2>
-        <button class="modal-close" data-modal="profileModal" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="profile-content">
-          <img class="profile-avatar" src="193269.jpg" alt="Avatar do jogador" />
-          <h3 class="profile-name" id="profileNameModal">Astra</h3>
-          <div class="profile-role" id="profileRole">Guild Master</div>
-
-          <div class="form-group">
-            <label class="form-label">Nome do aventureiro</label>
-            <input id="profileNameInput" type="text" maxlength="20" placeholder="Digite seu nome" />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Título</label>
-            <select id="profileTitleSelect">
-              <option value="Iniciante">Iniciante</option>
-              <option value="Aventureiro">Aventureiro</option>
-              <option value="Guild Master">Guild Master</option>
-              <option value="Lendário">Lendário</option>
-              <option value="Ninja do Foco">Ninja do Foco</option>
-            </select>
-          </div>
-
-          <div class="profile-stats">
-            <div class="profile-stat">
-              <div class="profile-stat-icon"><i class="fa-solid fa-trophy"></i></div>
-              <div class="profile-stat-value" id="profileStatTotal">0</div>
-              <div class="profile-stat-label">missões</div>
+        <div class="task-list" id="taskList">
+          <div class="task-item">
+            <div class="task-check">✓</div>
+            <div class="task-body">
+              <p class="task-title">Organizar a mesa de trabalho</p>
+              <div class="task-meta">
+                <span class="task-xp">+40 XP</span>
+                <span class="task-date">Hoje</span>
+              </div>
             </div>
-            <div class="profile-stat">
-              <div class="profile-stat-icon"><i class="fa-solid fa-flame"></i></div>
-              <div class="profile-stat-value" id="profileStatStreak">0</div>
-              <div class="profile-stat-label">streak</div>
-            </div>
+            <button class="task-delete" aria-label="Excluir"><i class="fas fa-trash"></i></button>
           </div>
 
-          <button class="form-submit" id="saveProfileBtn" type="button">Salvar perfil</button>
+          <div class="task-item completed">
+            <div class="task-check">✓</div>
+            <div class="task-body">
+              <p class="task-title">Responder e-mails urgentes</p>
+              <div class="task-meta">
+                <span class="task-xp">+50 XP</span>
+                <span class="task-date">Concluído</span>
+              </div>
+            </div>
+            <button class="task-delete" aria-label="Excluir"><i class="fas fa-trash"></i></button>
+          </div>
+
+          <div class="task-item">
+            <div class="task-check">✓</div>
+            <div class="task-body">
+              <p class="task-title">Estudar 30 minutos de foco</p>
+              <div class="task-meta">
+                <span class="task-xp">+80 XP</span>
+                <span class="task-date">Amanhã</span>
+              </div>
+            </div>
+            <button class="task-delete" aria-label="Excluir"><i class="fas fa-trash"></i></button>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section class="rewards-wrap view" id="rewardsView">
+        <div class="reward-header">
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">✨ Parabéns por cumprir metas!</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.04em;">Sala de Prêmios</div>
+          <div style="font-size: 12px; color: var(--accent-2);">Resgate o que você gosta</div>
+        </div>
+
+        <div class="reward-points">
+          <div class="point-box">
+            <div class="point-label">Pontos</div>
+            <div class="point-value" id="rewardPoints">240</div>
+          </div>
+          <div class="point-box">
+            <div class="point-label">Hoje</div>
+            <div class="point-value" id="rewardRedeems">2</div>
+          </div>
+        </div>
+
+        <div class="reward-grid">
+          <div class="reward-card">
+            <div class="reward-icon">🎮</div>
+            <div class="reward-info">
+              <p class="reward-name">Sessão de Jogos</p>
+              <p class="reward-desc">1 hora do jogo favorito</p>
+            </div>
+            <div class="reward-cost">25 pts</div>
+            <button class="reward-btn" data-cost="25" data-name="Sessão de Jogos" data-icon="🎮">Usar</button>
+          </div>
+
+          <div class="reward-card">
+            <div class="reward-icon">🎵</div>
+            <div class="reward-info">
+              <p class="reward-name">Playlist favorita</p>
+              <p class="reward-desc">Ouvir sua trilha perfeita</p>
+            </div>
+            <div class="reward-cost">15 pts</div>
+            <button class="reward-btn" data-cost="15" data-name="Playlist favorita" data-icon="🎵">Usar</button>
+          </div>
+
+          <div class="reward-card">
+            <div class="reward-icon">🎬</div>
+            <div class="reward-info">
+              <p class="reward-name">Sessão de Série</p>
+              <p class="reward-desc">30 minutos de entretenimento</p>
+            </div>
+            <div class="reward-cost">20 pts</div>
+            <button class="reward-btn" data-cost="20" data-name="Sessão de Série" data-icon="🎬">Usar</button>
+          </div>
+
+          <div class="reward-card">
+            <div class="reward-icon">☕</div>
+            <div class="reward-info">
+              <p class="reward-name">Pausa de Café</p>
+              <p class="reward-desc">Um descanso reconfortante</p>
+            </div>
+            <div class="reward-cost">12 pts</div>
+            <button class="reward-btn" data-cost="12" data-name="Pausa de Café" data-icon="☕">Usar</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-target="homeView"><i class="fas fa-list-check"></i><span class="nav-label">Tarefas</span></button>
+      <button class="nav-btn" data-target="rewardsView"><i class="fas fa-gift"></i><span class="nav-label">Prêmios</span></button>
+      <button class="nav-btn" data-target="statsView"><i class="fas fa-chart-bar"></i><span class="nav-label">Stats</span></button>
+    </nav>
+
+    <div class="toast" id="toast"></div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'nekoquest-planner-v3';
-    const DEFAULT_STATE = {
-      profileName: 'Astra',
-      profileRole: 'Guild Master',
-      themeColor: '#a78bfa',
-      selectedDifficulty: 100,
-      filter: 'all',
-      xp: 0,
-      totalCompleted: 0,
-      inventory: ['ember-armor', 'moon-potion'],
-      equipped: 'ember-armor',
-      dailyMission: {
-        date: getToday(),
-        claimed: false,
-        title: 'Concluir 2 missões do dia',
-        reward: 120
-      },
-      loot: [
-        { id: 'ember-armor', name: 'Armadura Ember', type: 'armor', rarity: 'raro', desc: 'Bônus de espírito e foco', icon: 'fa-solid fa-shield-halved' },
-        { id: 'moon-potion', name: 'Poção da Lua', type: 'potion', rarity: 'épico', desc: 'Recarga de energia mágica', icon: 'fa-solid fa-wine-bottle' },
-        { id: 'wind-sigil', name: 'Selo do Vento', type: 'sigil', rarity: 'lendário', desc: 'Acelera progresso e disciplina', icon: 'fa-solid fa-wind' }
-      ],
-      tasks: [
-        { id: '1', title: 'Estudar JavaScript', xp: 100, priority: 'media', date: getToday(), done: false },
-        { id: '2', title: 'Treinar foco por 30 min', xp: 50, priority: 'baixa', date: getToday(), done: false },
-        { id: '3', title: 'Organizar tarefas do dia', xp: 100, priority: 'media', date: getDateOffset(-1), done: true },
-        { id: '4', title: 'Leitura de 20 páginas', xp: 150, priority: 'alta', date: getDateOffset(-2), done: true },
-        { id: '5', title: 'Revisar rotina matinal', xp: 75, priority: 'baixa', date: getDateOffset(-4), done: true }
-      ]
+    const state = {
+      points: 240,
+      redeems: 2
     };
 
-    const state = loadState();
-    let focusInterval = null;
-    let focusRemaining = 25 * 60;
-    let focusMode = 25;
+    const views = document.querySelectorAll('.view');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const toast = document.getElementById('toast');
 
-    document.addEventListener('DOMContentLoaded', () => {
-      initTheme();
-      bindEvents();
-      renderAll();
-      requestNotificationPermission();
-      setInterval(checkDailyReminders, 60000);
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function syncPoints() {
+      document.getElementById('pointBadge').textContent = state.points;
+      document.getElementById('rewardPoints').textContent = state.points;
+      document.getElementById('rewardRedeems').textContent = state.redeems;
+    }
+
+    function switchView(targetId) {
+      views.forEach(view => view.classList.toggle('active', view.id === targetId));
+      navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.target === targetId));
+
+      if (targetId === 'rewardsView') {
+        showToast('🎁 Sala de prêmios aberta');
+      }
+    }
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchView(btn.dataset.target));
     });
 
-    function bindEvents() {
-      document.querySelectorAll('.filter-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          state.filter = button.dataset.filter;
-          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn === button));
-          renderTasks();
-        });
-      });
-
-      document.querySelectorAll('.diff-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.toggle('active', btn === button));
-          state.selectedDifficulty = Number(button.dataset.xp || 100);
-        });
-      });
-
-      document.querySelectorAll('.color-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          document.querySelectorAll('.color-btn').forEach(btn => btn.classList.toggle('active', btn === button));
-          state.themeColor = button.dataset.color || '#a78bfa';
-          initTheme();
-          saveState();
-        });
-      });
-
-      document.querySelectorAll('.focus-pill').forEach(button => {
-        button.addEventListener('click', () => {
-          document.querySelectorAll('.focus-pill').forEach(btn => btn.classList.toggle('active', btn === button));
-          focusMode = Number(button.dataset.mode || 25);
-          focusRemaining = focusMode * 60;
-          renderFocusTimer();
-          if (focusInterval) {
-            clearInterval(focusInterval);
-            focusInterval = null;
-            document.getElementById('focusStartBtn').textContent = 'Iniciar';
-          }
-        });
-      });
-
-      document.getElementById('focusStartBtn').addEventListener('click', () => {
-        if (focusInterval) {
-          clearInterval(focusInterval);
-          focusInterval = null;
-          document.getElementById('focusStartBtn').textContent = 'Iniciar';
-          return;
-        }
-
-        focusInterval = setInterval(() => {
-          if (focusRemaining <= 0) {
-            clearInterval(focusInterval);
-            focusInterval = null;
-            document.getElementById('focusStartBtn').textContent = 'Iniciar';
-            showToast('Expedição concluída! Você domina a sessão.');
-            playSound('complete');
-            return;
-          }
-          focusRemaining -= 1;
-          renderFocusTimer();
-        }, 1000);
-
-        document.getElementById('focusStartBtn').textContent = 'Pausar';
-      });
-
-      document.getElementById('focusResetBtn').addEventListener('click', () => {
-        if (focusInterval) clearInterval(focusInterval);
-        focusInterval = null;
-        focusRemaining = focusMode * 60;
-        renderFocusTimer();
-        document.getElementById('focusStartBtn').textContent = 'Iniciar';
-      });
-
-      document.getElementById('createBtn').addEventListener('click', createTask);
-      document.getElementById('saveProfileBtn').addEventListener('click', saveProfileData);
-      document.getElementById('profileTopBtn').addEventListener('click', () => openModal('profileModal'));
-      document.getElementById('themeTopBtn').addEventListener('click', () => openModal('themeModal'));
-      document.getElementById('profileBtn').addEventListener('click', () => openModal('profileModal'));
-      document.getElementById('addBtn').addEventListener('click', () => openModal('addQuestModal'));
-      document.getElementById('homeBtn').addEventListener('click', () => closeModal('addQuestModal'));
-
-      document.querySelectorAll('.modal-close').forEach(button => {
-        button.addEventListener('click', () => closeModal(button.dataset.modal));
-      });
-
-      document.getElementById('profileNameInput').addEventListener('input', (event) => {
-        const value = event.target.value.trim();
-        document.getElementById('profileNameModal').textContent = value || 'Aventureiro';
-      });
-
-      document.getElementById('profileTitleSelect').addEventListener('change', (event) => {
-        state.profileRole = event.target.value || 'Guild Master';
-        document.getElementById('profileRole').textContent = state.profileRole;
-      });
-
-      document.getElementById('tasksContainer').addEventListener('click', (event) => {
-        const checkbox = event.target.closest('.task-checkbox');
-        if (checkbox) {
-          toggleTask(checkbox.dataset.id);
-          return;
-        }
-
-        const deleteBtn = event.target.closest('.task-delete');
-        if (deleteBtn) {
-          removeTask(deleteBtn.dataset.id);
-        }
-      });
-
-      document.getElementById('shopList').addEventListener('click', (event) => {
-        const button = event.target.closest('.equipped-btn');
-        const sellBtn = event.target.closest('.sell-btn');
-        if (button) {
-          const itemId = button.dataset.id;
-          equipItem(itemId);
-          return;
-        }
-        if (sellBtn) {
-          const itemId = sellBtn.dataset.id;
-          sellItem(itemId);
-        }
-      });
-
-      document.getElementById('dailyMissionCard').addEventListener('click', (event) => {
-        const button = event.target.closest('.claim-btn');
-        if (button) claimDailyMission();
-      });
-
-      window.addEventListener('click', (event) => {
-        document.querySelectorAll('.modal').forEach(modal => {
-          if (event.target === modal) closeModal(modal.id);
-        });
-      });
-    }
-
-    function loadState() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (saved && Array.isArray(saved.tasks)) {
-          return { ...DEFAULT_STATE, ...saved };
-        }
-      } catch (error) {
-        console.warn('Erro ao carregar estado:', error);
-      }
-      return { ...DEFAULT_STATE };
-    }
-
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        profileName: state.profileName,
-        profileRole: state.profileRole,
-        themeColor: state.themeColor,
-        selectedDifficulty: state.selectedDifficulty,
-        filter: state.filter,
-        xp: state.xp,
-        totalCompleted: state.totalCompleted,
-        inventory: state.inventory,
-        equipped: state.equipped,
-        dailyMission: state.dailyMission,
-        loot: state.loot,
-        tasks: state.tasks
-      }));
-    }
-
-    function initTheme() {
-      const root = document.documentElement;
-      root.style.setProperty('--accent', state.themeColor);
-      root.style.setProperty('--accent-2', mixHex(state.themeColor, '#5ee7ff', 0.55));
-      root.style.setProperty('--accent-glow', hexToRgba(state.themeColor, 0.34));
-      document.querySelectorAll('.color-btn').forEach(button => {
-        button.classList.toggle('active', button.dataset.color === state.themeColor);
-      });
-    }
-
-    function renderAll() {
-      renderProfile();
-      renderStats();
-      renderCalendar();
-      renderQuestLog();
-      renderAchievements();
-      renderDailyMission();
-      renderInventory();
-      renderShop();
-      renderTasks();
-      renderFocusTimer();
-      updateProgress();
-    }
-
-    function renderProfile() {
-      const name = state.profileName || 'Astra';
-      document.getElementById('playerNameDisplay').textContent = name;
-      document.getElementById('profileNameModal').textContent = name;
-      document.getElementById('profileNameInput').value = name;
-      document.getElementById('profileRole').textContent = state.profileRole || 'Guild Master';
-      document.getElementById('profileTitleSelect').value = state.profileRole || 'Guild Master';
-    }
-
-    function renderStats() {
-      const total = state.tasks.length;
-      const done = state.tasks.filter(task => task.done).length;
-      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0) + (state.xp || 0);
-      const nextLevelXP = 100;
-
-      document.getElementById('statTotal').textContent = String(total);
-      document.getElementById('statDone').textContent = String(done);
-      document.getElementById('statXp').textContent = String(xp);
-      document.getElementById('profileStatTotal').textContent = String(total);
-      document.getElementById('profileStatStreak').textContent = String(getStreak());
-
-      const level = Math.max(1, Math.floor(xp / 100) + 1);
-      const currentXP = xp % 100;
-      const progress = Math.min(100, (currentXP / nextLevelXP) * 100);
-
-      document.getElementById('playerLvl').textContent = 'LVL ' + level;
-      document.getElementById('xpCurrent').textContent = currentXP + ' XP';
-      document.getElementById('xpNext').textContent = 'NEXT: ' + (nextLevelXP - currentXP) + ' XP';
-      document.getElementById('xpBar').style.width = progress + '%';
-
-      const title = chooseTitle(level);
-      document.getElementById('playerTitle').textContent = title;
-      if (!state.profileRole || state.profileRole === 'Guild Master') {
-        state.profileRole = title;
-      }
-      document.getElementById('profileRole').textContent = state.profileRole;
-    }
-
-    function renderQuestLog() {
-      const log = document.getElementById('questLog');
-      const activeTasks = state.tasks.filter(task => !task.done).slice(0, 3);
-
-      if (!activeTasks.length) {
-        log.innerHTML = `
-          <div class="quest-log-item">
-            <strong>Sem missões</strong>
-            <span class="status">Dormindo</span>
-          </div>
-        `;
-        return;
-      }
-
-      log.innerHTML = activeTasks.map(task => `
-        <div class="quest-log-item">
-          <strong>${escapeHtml(task.title)}</strong>
-          <span class="status">${task.priority || 'media'}</span>
-        </div>
-      `).join('');
-    }
-
-    function renderAchievements() {
-      const list = document.getElementById('achievementList');
-      const doneCount = state.tasks.filter(task => task.done).length;
-      const streak = getStreak();
-      const achievements = [
-        { icon: 'fa-solid fa-bolt', title: 'Primeiro passo', desc: doneCount >= 1 ? 'Desbloqueado' : 'Complete sua primeira missão', unlocked: doneCount >= 1 },
-        { icon: 'fa-solid fa-fire', title: 'Foco total', desc: streak >= 3 ? 'Streak de 3 dias' : 'Crie uma sequência', unlocked: streak >= 3 },
-        { icon: 'fa-solid fa-crown', title: 'Guild Master', desc: doneCount >= 5 ? 'Guild reconhecida' : 'Atinge 5 missões', unlocked: doneCount >= 5 }
-      ];
-
-      list.innerHTML = achievements.map(item => `
-        <div class="achievement-item">
-          <div class="achievement-icon"><i class="${item.icon}"></i></div>
-          <div class="achievement-copy">
-            <strong>${item.title}</strong>
-            <span>${item.desc}</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderDailyMission() {
-      const card = document.getElementById('dailyMissionCard');
-      const mission = state.dailyMission;
-      const today = getToday();
-
-      if (mission.date !== today) {
-        state.dailyMission = { date: today, claimed: false, title: 'Concluir 2 missões do dia', reward: 120 };
-      }
-
-      const buttonLabel = mission.claimed ? 'Recebido' : 'Claim';
-      card.innerHTML = `
-        <div class="daily-mission-box">
-          <div class="daily-copy">
-            <div class="daily-icon"><i class="fa-solid fa-star"></i></div>
-            <div>
-              <strong>${mission.title}</strong>
-              <span>Recompensa: ${mission.reward} XP</span>
-            </div>
-          </div>
-          <div class="reward-pill">+ ${mission.reward} XP</div>
-          <button class="claim-btn" data-action="claim" ${mission.claimed ? 'disabled' : ''}>${buttonLabel}</button>
-        </div>
-      `;
-    }
-
-    function renderInventory() {
-      const list = document.getElementById('lootList');
-      const owned = state.loot.filter(item => state.inventory.includes(item.id));
-
-      if (!owned.length) {
-        list.innerHTML = `
-          <div class="loot-item">
-            <div class="loot-copy">
-              <strong>Baú vazio</strong>
-              <span>Complete missões para ganhar loot.</span>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      list.innerHTML = owned.map(item => `
-        <div class="loot-item">
-          <div class="loot-icon"><i class="${item.icon}"></i></div>
-          <div class="loot-copy">
-            <strong>${item.name}</strong>
-            <span>${item.rarity} · ${item.desc}</span>
-          </div>
-          <span class="pill-tag">${state.equipped === item.id ? 'equipado' : 'no baú'}</span>
-        </div>
-      `).join('');
-    }
-
-    function renderShop() {
-      const list = document.getElementById('shopList');
-      const itemList = state.loot.map(item => {
-        const owned = state.inventory.includes(item.id);
-        const equipped = state.equipped === item.id;
-        return `
-          <div class="shop-item">
-            <div class="shop-icon"><i class="${item.icon}"></i></div>
-            <div class="shop-copy">
-              <strong>${item.name}</strong>
-              <span>${item.rarity} · ${item.desc}</span>
-            </div>
-            ${owned ? (
-              equipped ? '<button class="sell-btn" data-id="'+item.id+'">Equipado</button>' : '<button class="equip-btn equipped-btn" data-id="'+item.id+'">Equipar</button>'
-            ) : '<button class="sell-btn" data-id="'+item.id+'">+50</button>'}
-          </div>
-        `;
-      }).join('');
-
-      list.innerHTML = itemList;
-    }
-
-    function renderTasks() {
-      const filtered = state.tasks.filter(task => {
-        if (state.filter === 'active') return !task.done;
-        if (state.filter === 'done') return task.done;
-        return true;
-      });
-
-      const container = document.getElementById('tasksContainer');
-      if (!filtered.length) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i class="fa-solid fa-ghost"></i>
-            Nenhuma missão ainda. Crie uma para começar!
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filtered.map(task => `
-        <div class="task-item ${task.done ? 'completed' : ''}" data-id="${task.id}">
-          <button class="task-checkbox" data-id="${task.id}" aria-label="Concluir tarefa">
-            ${task.done ? '<i class="fa-solid fa-check"></i>' : ''}
-          </button>
-          <div class="task-content">
-            <p class="task-title">${escapeHtml(task.title)}</p>
-            <div class="task-meta">
-              <span class="task-xp"><i class="fa-solid fa-star"></i> ${task.xp} XP</span>
-              <span class="task-diff">${task.priority || 'media'}</span>
-              <span class="task-date">${task.date ? formatDate(task.date) : 'Sem data'}</span>
-            </div>
-          </div>
-          <button class="task-delete" data-id="${task.id}" aria-label="Deletar tarefa"><i class="fa-solid fa-trash"></i></button>
-        </div>
-      `).join('');
-    }
-
-    function renderFocusTimer() {
-      const minutes = Math.floor(focusRemaining / 60);
-      const seconds = focusRemaining % 60;
-      const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      document.getElementById('focusTime').textContent = display;
-      document.getElementById('focusStartBtn').textContent = focusInterval ? 'Pausar' : 'Iniciar';
-    }
-
-    function renderCalendar() {
-      const now = new Date();
-      const monthLabel = document.getElementById('calendarMonthLabel');
-      const grid = document.getElementById('calendarGrid');
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      const startDay = monthStart.getDay();
-      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-      const monthName = monthStart.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
-      const monthDays = [];
-
-      monthLabel.textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
-
-      for (let i = 0; i < startDay; i++) {
-        monthDays.push({ empty: true, date: null, done: 0, total: 0 });
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dateKey = toISODate(new Date(now.getFullYear(), now.getMonth(), day));
-        const done = state.tasks.filter(task => task.done && task.date === dateKey).length;
-        const total = state.tasks.filter(task => task.date === dateKey).length;
-        monthDays.push({ empty: false, date: day, key: dateKey, done, total });
-      }
-
-      while (monthDays.length % 7 !== 0) {
-        monthDays.push({ empty: true, date: null, done: 0, total: 0 });
-      }
-
-      const todayKey = toISODate(new Date());
-      const totalTasksThisMonth = monthDays.filter(day => !day.empty && day.total > 0).reduce((sum, day) => sum + day.total, 0);
-      document.getElementById('calendarSummary').textContent = totalTasksThisMonth + ' tarefas';
-
-      grid.innerHTML = monthDays.map(day => {
-        if (day.empty) {
-          return '<div class="calendar-day muted"></div>';
-        }
-
-        const isToday = day.key === todayKey;
-        const hasTask = day.total > 0;
-        return `
-          <div class="calendar-day ${isToday ? 'today' : ''} ${hasTask ? 'has-task' : ''}">
-            <span>${day.date}</span>
-            ${day.done > 0 ? `<span class="done-badge">${day.done}</span>` : ''}
-            ${hasTask ? '<span class="dot"></span>' : ''}
-          </div>
-        `;
-      }).join('');
-    }
-
-    function createTask() {
-      const titleInput = document.getElementById('questTitle');
-      const title = titleInput.value.trim();
-      const date = document.getElementById('questDate').value || getToday();
-      const priority = document.getElementById('questPriority').value || 'media';
-      const xp = state.selectedDifficulty || 100;
-
-      if (!title) {
-        showToast('Nome da missão não pode ficar vazio.');
-        return;
-      }
-
-      const task = { id: String(Date.now()), title, xp, priority, date, done: false };
-      state.tasks.unshift(task);
-      titleInput.value = '';
-      document.getElementById('questDate').value = '';
-      document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.toggle('active', Number(btn.dataset.xp) === state.selectedDifficulty));
-      saveState();
-      renderAll();
-      closeModal('addQuestModal');
-      showToast('Nova missão criada!');
-      playSound('create');
-    }
-
-    function toggleTask(taskId) {
-      const task = state.tasks.find(item => item.id === taskId);
-      if (!task) return;
-
-      task.done = !task.done;
-      task.completedAt = task.done ? new Date().toISOString() : null;
-
-      if (task.done) {
-        state.totalCompleted = (state.totalCompleted || 0) + 1;
-        state.xp = (state.xp || 0) + Number(task.xp || 0);
-        const reward = Number(task.xp || 0);
-        if (reward > 0) {
-          maybeGrantLoot(reward);
-        }
-        showToast(randomRpgPhrase());
-        playSound('complete');
-      }
-
-      saveState();
-      renderAll();
-    }
-
-    function removeTask(taskId) {
-      state.tasks = state.tasks.filter(task => task.id !== taskId);
-      saveState();
-      renderAll();
-    }
-
-    function saveProfileData() {
-      const input = document.getElementById('profileNameInput');
-      const rawName = input.value.trim();
-      state.profileName = rawName || 'Astra';
-      state.profileRole = document.getElementById('profileTitleSelect').value || 'Guild Master';
-      saveState();
-      renderProfile();
-      renderStats();
-      closeModal('profileModal');
-      showToast('Perfil atualizado!');
-      playSound('create');
-    }
-
-    function equipItem(itemId) {
-      state.equipped = itemId;
-      saveState();
-      renderInventory();
-      renderShop();
-      showToast('Item equipado!');
-    }
-
-    function sellItem(itemId) {
-      const item = state.loot.find(entry => entry.id === itemId);
-      if (!item) return;
-      const owned = state.inventory.includes(itemId);
-      if (!owned) {
-        if ((state.xp || 0) < 50) {
-          showToast('Você precisa de mais XP para comprar este item.');
-          return;
-        }
-        state.xp -= 50;
-        state.inventory.push(itemId);
-        saveState();
-        renderAll();
-        showToast(`Você comprou ${item.name}!`);
-        return;
-      }
-      state.equipped = itemId;
-      saveState();
-      renderAll();
-      showToast(`${item.name} equipado.`);
-    }
-
-    function claimDailyMission() {
-      if (state.dailyMission.claimed) {
-        showToast('A missão diária já foi concluída hoje.');
-        return;
-      }
-      const now = getToday();
-      if (state.dailyMission.date !== now) {
-        state.dailyMission = { date: now, claimed: false, title: 'Concluir 2 missões do dia', reward: 120 };
-      }
-      const doneToday = state.tasks.filter(task => task.done && task.date === now).length;
-      if (doneToday < 2) {
-        showToast('Você precisa concluir 2 missões hoje para receber o prêmio.');
-        return;
-      }
-      state.dailyMission.claimed = true;
-      state.xp = (state.xp || 0) + Number(state.dailyMission.reward || 0);
-      saveState();
-      renderDailyMission();
-      renderStats();
-      showToast(`Recompensa diária recebida: +${state.dailyMission.reward} XP`);
-      playSound('complete');
-    }
-
-    function maybeGrantLoot(reward) {
-      if (reward < 80) return;
-      const rarities = ['comum', 'raro', 'épico'];
-      const itemPool = state.loot.filter(item => !state.inventory.includes(item.id));
-      if (!itemPool.length) return;
-      const randomItem = itemPool[Math.floor(Math.random() * itemPool.length)];
-      state.inventory.push(randomItem.id);
-      showToast(`Loot encontrado: ${randomItem.name}!`);
-      saveState();
-    }
-
-    function openModal(id) {
-      document.getElementById(id).classList.add('active');
-    }
-
-    function closeModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.remove('active');
-    }
-
-    function checkDailyReminders() {
-      const todayKey = getToday();
-      const pending = state.tasks.filter(task => !task.done && task.date === todayKey);
-
-      if (!pending.length) return;
-
-      const reminderKey = 'daily-reminder-' + todayKey;
-      const lastReminder = sessionStorage.getItem(reminderKey);
-      if (lastReminder) return;
-
-      const message = pending.length > 1
-        ? `Você tem ${pending.length} missões pendentes hoje!`
-        : `A missão de hoje ainda está pendente!`;
-
-      showToast(message);
-      playSound('reminder');
-      sessionStorage.setItem(reminderKey, '1');
-
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('NEKOQUEST', { body: message });
-      }
-    }
-
-    function requestNotificationPermission() {
-      if (!('Notification' in window)) return;
-      if (Notification.permission === 'default') {
-        Notification.requestPermission().catch(() => {});
-      }
-    }
-
-    function playSound(type) {
-      const soundMap = {
-        complete: [440, 550, 660],
-        reminder: [220, 180, 150],
-        create: [420, 510, 620]
-      };
-
-      try {
-        const context = new (window.AudioContext || window.webkitAudioContext)();
-        const notes = soundMap[type] || soundMap.complete;
-        notes.forEach((freq, index) => {
-          const oscillator = context.createOscillator();
-          const gain = context.createGain();
-          oscillator.type = index % 2 === 0 ? 'sine' : 'triangle';
-          oscillator.frequency.value = freq;
-          gain.gain.value = 0.0001;
-          oscillator.connect(gain);
-          gain.connect(context.destination);
-          oscillator.start(context.currentTime + index * 0.06);
-          gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + index * 0.06 + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + index * 0.06 + 0.13);
-          oscillator.stop(context.currentTime + index * 0.06 + 0.18);
-        });
-      } catch (error) {
-        console.warn('Áudio indisponível no navegador:', error);
-      }
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(showToast.timeoutId);
-      showToast.timeoutId = setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    function randomRpgPhrase() {
-      const phrases = [
-        'Missão concluída! +25 de coragem.',
-        'Você derrotou a procrastinação! +50 XP.',
-        'Uma vitória épica para a guilda!',
-        'O herói deste dia avança mais um nível.',
-        'A jornada continua... e você está mais forte.',
-        'Nível conquistado: foco, disciplina e determinação.'
-      ];
-      return phrases[Math.floor(Math.random() * phrases.length)];
-    }
-
-    function getStreak() {
-      const completedDates = new Set(state.tasks.filter(task => task.done && task.date).map(task => task.date));
-      let streak = 0;
-      const cursor = new Date();
-      while (true) {
-        const dayKey = toISODate(cursor);
-        if (completedDates.has(dayKey)) {
-          streak += 1;
-          cursor.setDate(cursor.getDate() - 1);
+    document.querySelectorAll('.reward-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cost = Number(btn.dataset.cost);
+        const name = btn.dataset.name;
+        const icon = btn.dataset.icon;
+
+        if (state.points >= cost) {
+          state.points -= cost;
+          state.redeems += 1;
+          syncPoints();
+          showToast(`${icon} ${name} resgatado!`);
         } else {
-          break;
+          showToast('❌ Pontos insuficientes');
         }
-      }
-      return streak;
-    }
+      });
+    });
 
-    function chooseTitle(level) {
-      if (level >= 10) return 'Lendário';
-      if (level >= 7) return 'Guild Master';
-      if (level >= 5) return 'Aventureiro';
-      if (level >= 3) return 'Ninja do Foco';
-      return 'Iniciante';
-    }
+    document.querySelectorAll('.task-item').forEach(task => {
+      task.addEventListener('click', (e) => {
+        if (e.target.closest('.task-delete')) return;
+        task.classList.toggle('completed');
+        showToast('✅ Tarefa concluída! +20 XP');
+      });
+    });
 
-    function updateProgress() {
-      const xp = state.tasks.filter(task => task.done).reduce((sum, task) => sum + Number(task.xp || 0), 0) + (state.xp || 0);
-      const current = xp % 100;
-      const percent = Math.min(100, (current / 100) * 100);
-      document.getElementById('xpCurrent').textContent = current + ' XP';
-      document.getElementById('xpBar').style.width = percent + '%';
-    }
-
-    function getToday() {
-      return toISODate(new Date());
-    }
-
-    function getDateOffset(offset) {
-      const date = new Date();
-      date.setDate(date.getDate() + offset);
-      return toISODate(date);
-    }
-
-    function toISODate(date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return 'Sem data';
-      const date = new Date(dateStr + 'T00:00:00');
-      return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
-    }
-
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function mixHex(hex1, hex2, weight) {
-      const color1 = hexToRgb(hex1);
-      const color2 = hexToRgb(hex2);
-      const w = weight || 0.5;
-      const r = Math.round(color1.r * (1 - w) + color2.r * w);
-      const g = Math.round(color1.g * (1 - w) + color2.g * w);
-      const b = Math.round(color1.b * (1 - w) + color2.b * w);
-      return `rgb(${r}, ${g}, ${b})`;
-    }
-
-    function hexToRgb(hex) {
-      const clean = hex.replace('#', '');
-      const value = clean.length === 3
-        ? clean.split('').map(ch => ch + ch).join('')
-        : clean;
-      const num = parseInt(value, 16);
-      return {
-        r: (num >> 16) & 255,
-        g: (num >> 8) & 255,
-        b: num & 255
-      };
-    }
-
-    function hexToRgba(hex, alpha) {
-      const { r, g, b } = hexToRgb(hex);
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
+    syncPoints();
   </script>
 </body>
 </html>
