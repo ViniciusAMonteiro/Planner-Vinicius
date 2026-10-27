@@ -1,0 +1,13 @@
+COMPASSO — INSTALAÇÃO
+
+1. Antes de atualizar, exporte o Backup JSON em Perfil.
+2. Extraia este ZIP. Envie TODOS os arquivos para a mesma pasta do index.html no GitHub, substituindo os anteriores. Não envie apenas o ZIP.
+3. Mantenha o endereço atual do GitHub Pages para preservar os dados locais.
+4. Aguarde o deploy terminar. Abra o site online no celular e atualize a página.
+5. Android/Chrome: menu de três pontos > Instalar aplicativo ou Adicionar à tela inicial. Há também o botão em Perfil.
+6. iPhone/Safari: Compartilhar > Adicionar à Tela de Início. Confira o nome Compasso.
+
+Abrir index.html no gerenciador de arquivos ou na prévia do ChatGPT não permite instalar a PWA.
+Se o atalho antigo continuar com nome NekoQuest, primeiro exporte o backup. Depois remova o atalho antigo e instale novamente pelo site. Se necessário, restaure o backup. Não limpe os dados do navegador.
+
+A chave de dados nekoquest_v4 foi preservada. O pacote não publica alterações automaticamente no GitHub.
